@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jean Land 3D Page Map</title>
+    <script src="https://unpkg.com/3d-force-graph@1.72.3/dist/3d-force-graph.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+        
+        #graph {
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        .controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            max-width: 300px;
+        }
+        
+        .controls h3 {
+            margin-top: 0;
+            color: #333;
+            text-align: center;
+        }
+        
+        .controls button {
+            margin: 5px;
+            padding: 10px 15px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .controls button:hover {
+            background: #2980b9;
+        }
+        
+        .controls .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .info-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 350px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-height: 500px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .info-panel h3 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .info-panel .url {
+            font-size: 12px;
+            color: #666;
+            word-break: break-all;
+            margin-bottom: 15px;
+        }
+        
+        .info-panel .stats {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .info-panel .stats div {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        
+        .info-panel .links {
+            margin-top: 15px;
+        }
+        
+        .info-panel .links a {
+            display: block;
+            margin: 5px 0;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 12px;
+            padding: 5px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+        
+        .info-panel .links a:hover {
+            background-color: #ecf0f1;
+            text-decoration: underline;
+        }
+        
+        .legend {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        
+        .legend h4 {
+            margin-top: 0;
+            color: #333;
+            text-align: center;
+        }
+        
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            border: 1px solid #333;
+        }
+        
+        .legend-item span {
+            font-size: 12px;
+            color: #333;
+        }
+        
+        .instructions {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            max-width: 250px;
+        }
+        
+        .instructions h4 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .instructions ul {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .instructions li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <h3>Jean Land 3D Map</h3>
+        <div class="button-group">
+            <button onclick="resetCamera()">Reset View</button>
+            <button onclick="toggleLabels()">Toggle Labels</button>
+            <button onclick="centerOnHome()">Find Home</button>
+        </div>
+        <div class="button-group">
+            <button onclick="showNodesByType('home')">Home</button>
+            <button onclick="showNodesByType('subjects')">Subjects</button>
+            <button onclick="showNodesByType('objects')">Objects</button>
+        </div>
+        <div class="button-group">
+            <button onclick="showNodesByType('relations')">Relations</button>
+            <button onclick="showNodesByType('world')">World</button>
+            <button onclick="showNodesByType('jean')">Jean</button>
+        </div>
+        <div class="button-group">
+            <button onclick="showAllNodes()">Show All</button>
+            <button onclick="pauseSimulation()">Pause/Resume</button>
+        </div>
+    </div>
+    
+    <div class="info-panel" id="infoPanel">
+        <h3 id="pageTitle"></h3>
+        <div class="url" id="pageUrl"></div>
+        <div class="stats" id="pageStats"></div>
+        <div class="links" id="pageLinks"></div>
+    </div>
+    
+    <div class="legend">
+        <h4>Page Types</h4>
+        <div class="legend-grid">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ff6b6b;"></div>
+                <span>Home</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #4ecdc4;"></div>
+                <span>Subjects</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #45b7d1;"></div>
+                <span>Objects</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #f9ca24;"></div>
+                <span>Relations</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #6c5ce7;"></div>
+                <span>World</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #a55eea;"></div>
+                <span>Jean</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="instructions">
+        <h4>Controls</h4>
+        <ul>
+            <li>Drag to rotate view</li>
+            <li>Scroll to zoom</li>
+            <li>Click nodes for details</li>
+            <li>Right-click to pan</li>
+            <li>Double-click to focus</li>
+        </ul>
+    </div>
+    
+    <div id="graph"></div>
+
+    <script>
+        // Data from crawl_results.json
+        const crawlData = {
+            "summary": {
+                "total_urls_crawled": 79,
+                "total_urls_queued": 0,
+                "start_url": "https://www.jean.land/",
+                "max_depth": 5,
+                "domain": "www.jean.land"
+            },
+            "crawled_data": {
+                "https://www.jean.land/": {
+                    "url": "https://www.jean.land/",
+                    "title": "home - jean land",
+                    "status_code": 200,
+                    "content_length": 2689,
+                    "links_found": [
+                        "https://www.jean.land/subjects",
+                        "https://www.jean.land/objects",
+                        "https://www.jean.land/relations",
+                        "https://www.jean.land/world",
+                        "https://www.jean.land/jean",
+                        "https://www.jean.land/objects/metaphor"
+                    ]
+                },
+                "https://www.jean.land/subjects": {
+                    "url": "https://www.jean.land/subjects",
+                    "title": "subjects - jean land",
+                    "status_code": 200,
+                    "content_length": 3790,
+                    "links_found": [
+                        "https://www.jean.land/objects",
+                        "https://www.jean.land/relations",
+                        "https://www.jean.land/world",
+                        "https://www.jean.land/subjects/white-snake.html",
+                        "https://www.jean.land/subjects/calabash-brothers.html",
+                        "https://www.jean.land/subjects/lady-of-the-nine-skies.html",
+                        "https://www.jean.land/subjects/ometeotl",
+                        "https://www.jean.land/subjects/mithra.html",
+                        "https://www.jean.land/subjects/lady-of-sorrows.html",
+                        "https://www.jean.land/subjects/chang-e.html",
+                        "https://www.jean.land/subjects/emily-dickinson.html",
+                        "https://www.jean.land/subjects/ruth-and-naomi.html",
+                        "https://www.jean.land/subjects/iphis.html",
+                        "https://www.jean.land/subjects/tiresias.html",
+                        "https://www.jean.land/subjects/pythia.html",
+                        "https://www.jean.land/subjects/roshanitsa.html",
+                        "https://www.jean.land/subjects/stribog.html",
+                        "https://www.jean.land/subjects/ammar-ibn-yasir.html",
+                        "https://www.jean.land/subjects/reitia.html",
+                        "https://www.jean.land/subjects/skadi.html",
+                        "https://www.jean.land/subjects/sibyls.html",
+                        "https://www.jean.land/subjects/lotus-eaters.html",
+                        "https://www.jean.land/subjects/thiasus.html",
+                        "https://www.jean.land/subjects/kabeiroi.html"
+                    ]
+                },
+                "https://www.jean.land/objects": {
+                    "url": "https://www.jean.land/objects",
+                    "title": "Objects - jean land",
+                    "status_code": 200,
+                    "content_length": 3186,
+                    "links_found": [
+                        "https://www.jean.land/relations",
+                        "https://www.jean.land/world",
+                        "https://www.jean.land/objects.html",
+                        "https://www.jean.land/objects/advice.html",
+                        "https://www.jean.land/objects/same-name-couples.html",
+                        "https://www.jean.land/objects/docs.html",
+                        "https://www.jean.land/objects/foucault.html",
+                        "https://www.jean.land/objects/incels.html",
+                        "https://www.jean.land/objects/laundry.html",
+                        "https://www.jean.land/objects/machine-learning.html",
+                        "https://www.jean.land/objects/metaphor.html",
+                        "https://www.jean.land/objects/moby-dick-erasure-poetry.html",
+                        "https://www.jean.land/objects/recsys.html",
+                        "https://www.jean.land/objects/sebald.html",
+                        "https://www.jean.land/objects/thomas-turner.html"
+                    ]
+                },
+                "https://www.jean.land/relations": {
+                    "url": "https://www.jean.land/relations",
+                    "title": "relations - jean land",
+                    "status_code": 200,
+                    "content_length": 2904,
+                    "links_found": [
+                        "https://www.jean.land/world",
+                        "https://www.jean.land/relations.html",
+                        "https://www.jean.land/objects.html",
+                        "https://www.jean.land/relations/work",
+                        "https://www.jean.land/relations/writing",
+                        "https://www.jean.land/relations/lists.html",
+                        "https://www.jean.land/relations/reviews.html",
+                        "https://www.jean.land/relations/speaking.html",
+                        "https://www.jean.land/relations/visitors.html"
+                    ]
+                },
+                "https://www.jean.land/world": {
+                    "url": "https://www.jean.land/world",
+                    "title": "the world - jean land",
+                    "status_code": 200,
+                    "content_length": 3136,
+                    "links_found": [
+                        "https://www.jean.land/world.html",
+                        "https://www.jean.land/world.html",
+                        "https://www.jean.land/world/lower-heavens",
+                        "https://www.jean.land/world/loop",
+                        "https://www.jean.land/world/omelas",
+                        "https://www.jean.land/world/firmament",
+                        "https://www.jean.land/world/djerba",
+                        "https://www.jean.land/world/nyc"
+                    ]
+                },
+                "https://www.jean.land/jean": {
+                    "url": "https://www.jean.land/jean",
+                    "title": "jean - jean land",
+                    "status_code": 200,
+                    "content_length": 3440,
+                    "links_found": [
+                        "https://www.jean.land/world/lower-heavens",
+                        "https://www.jean.land/world/omelas",
+                        "https://www.jean.land/world/firmament",
+                        "https://www.jean.land/world/djerba",
+                        "https://www.jean.land/world/new-york-city",
+                        "https://www.jean.land/subjects.html",
+                        "https://www.jean.land/objects/incels",
+                        "https://www.jean.land/objects/same-name-couples"
+                    ]
+                },
+                "https://www.jean.land/objects/metaphor": {
+                    "url": "https://www.jean.land/objects/metaphor",
+                    "title": "metaphor - jean land",
+                    "status_code": 200,
+                    "content_length": 2925,
+                    "links_found": []
+                },
+                "https://www.jean.land/subjects/white-snake.html": {
+                    "url": "https://www.jean.land/subjects/white-snake.html",
+                    "title": "the white snake - jean land",
+                    "status_code": 200,
+                    "content_length": 3091,
+                    "links_found": [
+                        "https://www.jean.land/world/hangzhou",
+                        "https://www.jean.land/subjects/calabash-brothers"
+                    ]
+                },
+                "https://www.jean.land/subjects/calabash-brothers.html": {
+                    "url": "https://www.jean.land/subjects/calabash-brothers.html",
+                    "title": "calabash brothers - jean land",
+                    "status_code": 200,
+                    "content_length": 4713,
+                    "links_found": [
+                        "https://www.jean.land/subjects/white-snake",
+                        "https://www.jean.land/subjects/white-snake",
+                        "https://www.jean.land/index.html"
+                    ]
+                },
+                "https://www.jean.land/subjects/lady-of-the-nine-skies.html": {
+                    "url": "https://www.jean.land/subjects/lady-of-the-nine-skies.html",
+                    "title": "lady of the nine skies - jean land",
+                    "status_code": 200,
+                    "content_length": 3123,
+                    "links_found": [
+                        "https://www.jean.land/world/lower-heavens.html",
+                        "https://www.jean.land/world.html"
+                    ]
+                },
+                "https://www.jean.land/subjects/ometeotl": {
+                    "url": "https://www.jean.land/subjects/ometeotl",
+                    "title": "ometeotl - jean land",
+                    "status_code": 200,
+                    "content_length": 2663,
+                    "links_found": []
+                },
+                "https://www.jean.land/subjects/mithra.html": {
+                    "url": "https://www.jean.land/subjects/mithra.html",
+                    "title": "mithra - jean land",
+                    "status_code": 200,
+                    "content_length": 3030,
+                    "links_found": [
+                        "https://www.jean.land/subjects/lady-of-sorrows",
+                        "https://www.jean.land/world/nyc"
+                    ]
+                },
+                "https://www.jean.land/subjects/lady-of-sorrows.html": {
+                    "url": "https://www.jean.land/subjects/lady-of-sorrows.html",
+                    "title": "our lady of sorrows - jean land",
+                    "status_code": 200,
+                    "content_length": 2973,
+                    "links_found": [
+                        "https://www.jean.land/subjects/reitia"
+                    ]
+                },
+                "https://www.jean.land/subjects/chang-e.html": {
+                    "url": "https://www.jean.land/subjects/chang-e.html",
+                    "title": "chang'e - jean land",
+                    "status_code": 200,
+                    "content_length": 2890,
+                    "links_found": [
+                        "https://www.jean.land/world/nyc"
+                    ]
+                },
+                "https://www.jean.land/subjects/emily-dickinson.html": {
+                    "url": "https://www.jean.land/subjects/emily-dickinson.html",
+                    "title": "emily dickinson - jean land",
+                    "status_code": 200,
+                    "content_length": 3006,
+                    "links_found": [
+                        "https://www.jean.land/subjects/roshanitsa.html"
+                    ]
+                },
+                "https://www.jean.land/subjects/ruth-and-naomi.html": {
+                    "url": "https://www.jean.land/subjects/ruth-and-naomi.html",
+                    "title": "ruth and naomi - jean land",
+                    "status_code": 200,
+                    "content_length": 3184,
+                    "links_found": [
+                        "https://www.jean.land/subjects/tiresias",
+                        "https://www.jean.land/world/firmament",
+                        "https://www.jean.land/world/djerba"
+                    ]
+                },
+                "https://www.jean.land/subjects/iphis.html": {
+                    "url": "https://www.jean.land/subjects/iphis.html",
+                    "title": "iphis - jean land",
+                    "status_code": 200,
+                    "content_length": 3048,
+                    "links_found": [
+                        "https://www.jean.land/subjects/thiasus.html",
+                        "https://www.jean.land/relations/thiasus"
+                    ]
+                },
+                "https://www.jean.land/subjects/tiresias.html": {
+                    "url": "https://www.jean.land/subjects/tiresias.html",
+                    "title": "tiresias - jean land",
+                    "status_code": 200,
+                    "content_length": 2895,
+                    "links_found": [
+                        "https://www.jean.land/subjects/iphis",
+                        "https://www.jean.land/subjects/relations/thiasus"
+                    ]
+                },
+                "https://www.jean.land/subjects/pythia.html": {
+                    "url": "https://www.jean.land/subjects/pythia.html",
+                    "title": "pythia - jean land",
+                    "status_code": 200,
+                    "content_length": 3111,
+                    "links_found": [
+                        "https://www.jean.land/world/firmament.html"
+                    ]
+                },
+                "https://www.jean.land/subjects/roshanitsa.html": {
+                    "url": "https://www.jean.land/subjects/roshanitsa.html",
+                    "title": "roshanitsa - jean land",
+                    "status_code": 200,
+                    "content_length": 2933,
+                    "links_found": [
+                        "https://www.jean.land/world/lower-heavens.html"
+                    ]
+                },
+                "https://www.jean.land/subjects/stribog.html": {
+                    "url": "https://www.jean.land/subjects/stribog.html",
+                    "title": "stribog - jean land",
+                    "status_code": 200,
+                    "content_length": 2990,
+                    "links_found": [
+                        "https://www.jean.land/index.html"
+                    ]
+                },
+                "https://www.jean.land/subjects/ammar-ibn-yasir.html": {
+                    "url": "https://www.jean.land/subjects/ammar-ibn-yasir.html",
+                    "title": "ammar ibn yasir - jean land",
+                    "status_code": 200,
+                    "content_length": 3304,
+                    "links_found": [
+                        "https://www.jean.land/subjects/ometeotl.html"
+                    ]
+                },
+                "https://www.jean.land/subjects/reitia.html": {
+                    "url": "https://www.jean.land/subjects/reitia.html",
+                    "title": "reitia - jean land",
+                    "status_code": 200,
+                    "content_length": 3175,
+                    "links_found": [
+                        "https://www.jean.land/index.html",
+                        "https://www.jean.land/index.html",
+                        "https://www.jean.land/subjects/lady-of-sorrows"
+                    ]
+                },
+                "https://www.jean.land/subjects/skadi.html": {
+                    "url": "https://www.jean.land/subjects/skadi.html",
+                    "title": "skaði - jean land",
+                    "status_code": 200,
+                    "content_length": 2920,
+                    "links_found": []
+                },
+                "https://www.jean.land/subjects/sibyls.html": {
+                    "url": "https://www.jean.land/subjects/sibyls.html",
+                    "title": "the sibyls - jean land",
+                    "status_code": 200,
+                    "content_length": 2984,
+                    "links_found": [
+                        "https://www.jean.land/world/djerba",
+                        "https://www.jean.land/subjects/lady-of-sorrows"
+                    ]
+                },
+                "https://www.jean.land/subjects/lotus-eaters.html": {
+                    "url": "https://www.jean.land/subjects/lotus-eaters.html",
+                    "title": "the lotus-eaters - jean land",
+                    "status_code": 200,
+                    "content_length": 2853,
+                    "links_found": [
+                        "https://www.jean.land/world/djerba"
+                    ]
+                },
+                "https://www.jean.land/subjects/thiasus.html": {
+                    "url": "https://www.jean.land/subjects/thiasus.html",
+                    "title": "the thiasus - jean land",
+                    "status_code": 200,
+                    "content_length": 3081,
+                    "links_found": [
+                        "https://www.jean.land/world/djerba",
+                        "https://www.jean.land/world/firmament",
+                        "https://www.jean.land/world/djerba",
+                        "https://www.jean.land/world/firmament",
+                        "https://www.jean.land/world/nyc"
+                    ]
+                },
+                "https://www.jean.land/subjects/kabeiroi.html": {
+                    "url": "https://www.jean.land/subjects/kabeiroi.html",
+                    "title": "the kabeiroi - jean land",
+                    "status_code": 200,
+                    "content_length": 2866,
+                    "links_found": [
+                        "https://www.jean.land/world/firmament.html"
+                    ]
+                },
+                "https://www.jean.land/objects.html": {
+                    "url": "https://www.jean.land/objects.html",
+                    "title": "Objects - jean land",
+                    "status_code": 200,
+                    "content_length": 3186,
+                    "links_found": [
+                        "https://www.jean.land/objects/advice.html",
+                        "https://www.jean.land/objects/same-name-couples.html",
+                        "https://www.jean.land/objects/docs.html",
+                        "https://www.jean.land/objects/foucault.html",
+                        "https://www.jean.land/objects/incels.html",
+                        "https://www.jean.land/objects/laundry.html",
+                        "https://www.jean.land/objects/machine-learning.html",
+                        "https://www.jean.land/objects/metaphor.html",
+                        "https://www.jean.land/objects/moby-dick-erasure-poetry.html",
+                        "https://www.jean.land/objects/recsys.html",
+                        "https://www.jean.land/objects/sebald.html",
+                        "https://www.jean.land/objects/thomas-turner.html"
+                    ]
+                },
+                "https://www.jean.land/objects/advice.html": {
+                    "url": "https://www.jean.land/objects/advice.html",
+                    "title": "advice - jean land",
+                    "status_code": 200,
+                    "content_length": 4107,
+                    "links_found": []
+                },
+                "https://www.jean.land/objects/same-name-couples.html": {
+                    "url": "https://www.jean.land/objects/same-name-couples.html",
+                    "title": "couples with the same names - jean land",
+                    "status_code": 200,
+                    "content_length": 6157,
+                    "links_found": []
+                },
+                "https://www.jean.land/objects/docs.html": {
+                    "url": "https://www.jean.land/objects/docs.html",
+                    "title": "docs - jean land",
+                    "status_code": 200,
+                    "content_length": 3342,
+                    "links_found": []
+                },
+                "https://www.jean.land/objects/foucault.html": {
+                    "url": "https://www.jean.land/objects/foucault.html",
+                    "title": "foucault - jean land",
+                    "status_code": 200,
+                    "content_length": 10169,
+                    "links_found": [
+                        "https://www.jean.land/subjects.html",
+                        "https://www.jean.land/relations.html",
+                        "https://www.jean.land/relations.html",
+                        "https://www.jean.land/relations.html",
+                        "https://www.jean.land/relations.html",
+                        "https://www.jean.land/relations.html",
+                        "https://www.jean.land/world.html"
+                    ]
+                },
+                "https://www.jean.land/objects/incels.html": {
+                    "url": "https://www.jean.land/objects/incels.html",
+                    "title": "incel theory - jean land",
+                    "status_code": 200,
+                    "content_length": 29820,
+                    "links_found": [
+                        "https://www.jean.land/objects/mimbres.study.garden",
+                        "https://www.jean.land/relations.html",
+                        "https://www.jean.land/world.html",
+                        "https://www.jean.land/subjects.html",
+                        "https://www.jean.land/subjects.html",
+                        "https://www.jean.land/world.html",
+                        "https://www.jean.land/subjects.html",
+                        "https://www.jean.land/relations.html"
+                    ]
+                },
+                "https://www.jean.land/objects/laundry.html": {
+                    "url": "https://www.jean.land/objects/laundry.html",
+                    "title": "laundry and taxes - jean land",
+                    "status_code": 200,
+                    "content_length": 13065,
+                    "links_found": [
+                        "https://www.jean.land/index.html",
+                        "https://www.jean.land/relations/speaking.html",
+                        "https://www.jean.land/world.html"
+                    ]
+                },
+                "https://www.jean.land/objects/machine-learning.html": {
+                    "url": "https://www.jean.land/objects/machine-learning.html",
+                    "title": "machine learning - jean land",
+                    "status_code": 200,
+                    "content_length": 4157,
+                    "links_found": []
+                },
+                "https://www.jean.land/objects/metaphor.html": {
+                    "url": "https://www.jean.land/objects/metaphor.html",
+                    "title": "metaphor - jean land",
+                    "status_code": 200,
+                    "content_length": 2925,
+                    "links_found": []
+                },
+                "https://www.jean.land/objects/moby-dick-erasure-poetry.html": {
+                    "url": "https://www.jean.land/objects/moby-dick-erasure-poetry.html",
+                    "title": "moby dick erasure poetry - jean land",
+                    "status_code": 200,
+                    "content_length": 25813,
+                    "links_found": [
+                        "https://www.jean.land/world.html",
+                        "https://www.jean.land/world.html",
+                        "https://www.jean.land/index.html",
+                        "https://www.jean.land/index.html",
+                        "https://www.jean.land/world.html",
+                        "https://www.jean.land/index.html"
+                    ]
+                },
+                "https://www.jean.land/objects/recsys.html": {
+                    "url": "https://www.jean.land/objects/recsys.html",
+                    "title": "recsys - jean land",
+                    "status_code": 200,
+                    "content_length": 3022,
+                    "links_found": []
+                },
+                "https://www.jean.land/objects/sebald.html": {
+                    "url": "https://www.jean.land/objects/sebald.html",
+                    "title": "sebald - jean land",
+                    "status_code": 200,
+                    "content_length": 4487,
+                    "links_found": []
+                },
+                "https://www.jean.land/objects/thomas-turner.html": {
+                    "url": "https://www.jean.land/objects/thomas-turner.html",
+                    "title": "thomas turner - jean land",
+                    "status_code": 200,
+                    "content_length": 31800,
+                    "links_found": [
+                        "https://www.jean.land/index.html",
+                        "https://www.jean.land/index.html",
+                        "https://www.jean.land/index.html",
+                        "https://www.jean.land/index.html",
+                        "https://www.jean.land/index.html",
+                        "https://www.jean.land/index.html",
+                        "https://www.jean.land/index.html",
+                        "https://www.jean.land/index.html",
+                        "https://www.jean.land/index.html",
+                        "https://www.jean.land/relations/visitors.html",
+                        "https://www.jean.land/world.html",
+                        "https://www.jean.land/index.html"
+                    ]
+                },
+                "https://www.jean.land/relations.html": {
+                    "url": "https://www.jean.land/relations.html",
+                    "title": "relations - jean land",
+                    "status_code": 200,
+                    "content_length": 2904,
+                    "links_found": [
+                        "https://www.jean.land/relations/work",
+                        "https://www.jean.land/relations/writing",
+                        "https://www.jean.land/relations/lists.html",
+                        "https://www.jean.land/relations/reviews.html",
+                        "https://www.jean.land/relations/speaking.html",
+                        "https://www.jean.land/relations/visitors.html"
+                    ]
+                },
+                "https://www.jean.land/relations/work": {
+                    "url": "https://www.jean.land/relations/work",
+                    "title": "work - jean land",
+                    "status_code": 200,
+                    "content_length": 3945,
+                    "links_found": [
+                        "https://www.jean.land/relations/www.jean.land/world",
+                        "https://www.jean.land/relations/www.jean.land/world",
+                        "https://www.jean.land/subjects/sibyls"
+                    ]
+                },
+                "https://www.jean.land/relations/writing": {
+                    "url": "https://www.jean.land/relations/writing",
+                    "title": "writing - jean land",
+                    "status_code": 200,
+                    "content_length": 3634,
+                    "links_found": [
+                        "https://www.jean.land/relations/reviews.html",
+                        "https://www.jean.land/relations/reviews.html",
+                        "https://www.jean.land/relations/reviews.html"
+                    ]
+                },
+                "https://www.jean.land/relations/lists.html": {
+                    "url": "https://www.jean.land/relations/lists.html",
+                    "title": "lists - jean land",
+                    "status_code": 200,
+                    "content_length": 2939,
+                    "links_found": []
+                },
+                "https://www.jean.land/relations/reviews.html": {
+                    "url": "https://www.jean.land/relations/reviews.html",
+                    "title": "reviews - jean land",
+                    "status_code": 200,
+                    "content_length": 2773,
+                    "links_found": []
+                },
+                "https://www.jean.land/relations/speaking.html": {
+                    "url": "https://www.jean.land/relations/speaking.html",
+                    "title": "speaking - jean land",
+                    "status_code": 200,
+                    "content_length": 2651,
+                    "links_found": []
+                },
+                "https://www.jean.land/relations/visitors.html": {
+                    "url": "https://www.jean.land/relations/visitors.html",
+                    "title": "visitors - jean land",
+                    "status_code": 200,
+                    "content_length": 2778,
+                    "links_found": []
+                },
+                "https://www.jean.land/world.html": {
+                    "url": "https://www.jean.land/world.html",
+                    "title": "the world - jean land",
+                    "status_code": 200,
+                    "content_length": 3136,
+                    "links_found": [
+                        "https://www.jean.land/world/lower-heavens",
+                        "https://www.jean.land/world/loop",
+                        "https://www.jean.land/world/omelas",
+                        "https://www.jean.land/world/firmament",
+                        "https://www.jean.land/world/djerba",
+                        "https://www.jean.land/world/nyc"
+                    ]
+                },
+                "https://www.jean.land/world/lower-heavens": {
+                    "url": "https://www.jean.land/world/lower-heavens",
+                    "title": "the lower heavens - jean land",
+                    "status_code": 200,
+                    "content_length": 2933,
+                    "links_found": [
+                        "https://www.jean.land/world/hangzhou",
+                        "https://www.jean.land/index.html",
+                        "https://www.jean.land/world/firmament",
+                        "https://www.jean.land/subjects/chang-e"
+                    ]
+                },
+                "https://www.jean.land/world/loop": {
+                    "url": "https://www.jean.land/world/loop",
+                    "title": "loop - jean land",
+                    "status_code": 200,
+                    "content_length": 3261,
+                    "links_found": []
+                },
+                "https://www.jean.land/world/omelas": {
+                    "url": "https://www.jean.land/world/omelas",
+                    "title": "omelas - jean land",
+                    "status_code": 200,
+                    "content_length": 2878,
+                    "links_found": [
+                        "https://www.jean.land/world/world/lower-heavens"
+                    ]
+                },
+                "https://www.jean.land/world/firmament": {
+                    "url": "https://www.jean.land/world/firmament",
+                    "title": "the firmament - jean land",
+                    "status_code": 200,
+                    "content_length": 2613,
+                    "links_found": [
+                        "https://www.jean.land/world/firmament.html",
+                        "https://www.jean.land/world/djerba",
+                        "https://www.jean.land/world/nyc"
+                    ]
+                },
+                "https://www.jean.land/world/djerba": {
+                    "url": "https://www.jean.land/world/djerba",
+                    "title": "the island of djerba - jean land",
+                    "status_code": 200,
+                    "content_length": 3406,
+                    "links_found": [
+                        "https://www.jean.land/subjects/lotus-eaters",
+                        "https://www.jean.land/subjects/sibyls"
+                    ]
+                },
+                "https://www.jean.land/world/nyc": {
+                    "url": "https://www.jean.land/world/nyc",
+                    "title": "new york city - jean land",
+                    "status_code": 200,
+                    "content_length": 2558,
+                    "links_found": [
+                        "https://www.jean.land/world/nyc.html"
+                    ]
+                },
+                "https://www.jean.land/world/hangzhou": {
+                    "url": "https://www.jean.land/world/hangzhou",
+                    "title": "hangzhou - jean land",
+                    "status_code": 200,
+                    "content_length": 2526,
+                    "links_found": []
+                },
+                "https://www.jean.land/index.html": {
+                    "url": "https://www.jean.land/index.html",
+                    "title": "home - jean land",
+                    "status_code": 200,
+                    "content_length": 2689,
+                    "links_found": []
+                },
+                "https://www.jean.land/world/lower-heavens.html": {
+                    "url": "https://www.jean.land/world/lower-heavens.html",
+                    "title": "the lower heavens - jean land",
+                    "status_code": 200,
+                    "content_length": 2933,
+                    "links_found": [
+                        "https://www.jean.land/subjects/chang-e"
+                    ]
+                },
+                "https://www.jean.land/subjects/lady-of-sorrows": {
+                    "url": "https://www.jean.land/subjects/lady-of-sorrows",
+                    "title": "our lady of sorrows - jean land",
+                    "status_code": 200,
+                    "content_length": 2973,
+                    "links_found": [
+                        "https://www.jean.land/subjects/reitia"
+                    ]
+                },
+                "https://www.jean.land/subjects/reitia": {
+                    "url": "https://www.jean.land/subjects/reitia",
+                    "title": "reitia - jean land",
+                    "status_code": 200,
+                    "content_length": 3175,
+                    "links_found": []
+                },
+                "https://www.jean.land/subjects/tiresias": {
+                    "url": "https://www.jean.land/subjects/tiresias",
+                    "title": "tiresias - jean land",
+                    "status_code": 200,
+                    "content_length": 2895,
+                    "links_found": [
+                        "https://www.jean.land/subjects/iphis",
+                        "https://www.jean.land/subjects/relations/thiasus"
+                    ]
+                },
+                "https://www.jean.land/subjects/iphis": {
+                    "url": "https://www.jean.land/subjects/iphis",
+                    "title": "iphis - jean land",
+                    "status_code": 200,
+                    "content_length": 3048,
+                    "links_found": []
+                },
+                "https://www.jean.land/world/firmament.html": {
+                    "url": "https://www.jean.land/world/firmament.html",
+                    "title": "the firmament - jean land",
+                    "status_code": 200,
+                    "content_length": 2613,
+                    "links_found": []
+                },
+                "https://www.jean.land/subjects/ometeotl.html": {
+                    "url": "https://www.jean.land/subjects/ometeotl.html",
+                    "title": "ometeotl - jean land",
+                    "status_code": 200,
+                    "content_length": 2663,
+                    "links_found": []
+                },
+                "https://www.jean.land/subjects/sibyls": {
+                    "url": "https://www.jean.land/subjects/sibyls",
+                    "title": "the sibyls - jean land",
+                    "status_code": 200,
+                    "content_length": 2984,
+                    "links_found": []
+                },
+                "https://www.jean.land/subjects/chang-e": {
+                    "url": "https://www.jean.land/subjects/chang-e",
+                    "title": "chang'e - jean land",
+                    "status_code": 200,
+                    "content_length": 2890,
+                    "links_found": []
+                },
+                "https://www.jean.land/subjects/lotus-eaters": {
+                    "url": "https://www.jean.land/subjects/lotus-eaters",
+                    "title": "the lotus-eaters - jean land",
+                    "status_code": 200,
+                    "content_length": 2853,
+                    "links_found": []
+                },
+                "https://www.jean.land/world/nyc.html": {
+                    "url": "https://www.jean.land/world/nyc.html",
+                    "title": "new york city - jean land",
+                    "status_code": 200,
+                    "content_length": 2558,
+                    "links_found": []
+                }
+            }
+        };
+
+        // Color mapping for different page types
+        const colorMap = {
+            'home': 0xff6b6b,
+            'subjects': 0x4ecdc4,
+            'objects': 0x45b7d1,
+            'relations': 0xf9ca24,
+            'world': 0x6c5ce7,
+            'jean': 0xa55eea,
+            'default': 0x95a5a6
+        };
+
+        // Process data to create graph
+        let graphData = { nodes: [], links: [] };
+        let nodeMap = new Map();
+        let linkMap = new Map();
+        
+        // Create nodes from crawled data
+        Object.entries(crawlData.crawled_data).forEach(([url, data]) => {
+            if (data.status_code !== 200) return; // Skip failed pages
+            
+            // Determine node type and color
+            let nodeType = 'default';
+            if (url.includes('jean.land/')) {
+                if (url === 'https://www.jean.land/' || url === 'https://www.jean.land/index.html') {
+                    nodeType = 'home';
+                } else if (url.includes('/subjects')) {
+                    nodeType = 'subjects';
+                } else if (url.includes('/objects')) {
+                    nodeType = 'objects';
+                } else if (url.includes('/relations')) {
+                    nodeType = 'relations';
+                } else if (url.includes('/world')) {
+                    nodeType = 'world';
+                } else if (url.includes('/jean')) {
+                    nodeType = 'jean';
+                }
+            }
+            
+            // Create display name
+            let displayName = data.title.replace(' - jean land', '');
+            if (displayName.length > 25) {
+                displayName = displayName.substring(0, 22) + '...';
+            }
+            
+            const node = {
+                id: url,
+                name: displayName,
+                title: data.title,
+                url: url,
+                links: data.links_found || [],
+                type: nodeType,
+                color: colorMap[nodeType],
+                size: Math.min(Math.max(3, Math.sqrt(data.content_length) / 25), 15),
+                contentLength: data.content_length
+            };
+            
+            graphData.nodes.push(node);
+            nodeMap.set(url, node);
+        });
+        
+        // Create links
+        graphData.nodes.forEach(node => {
+            node.links.forEach(linkUrl => {
+                if (nodeMap.has(linkUrl)) {
+                    const linkKey = `${node.id}-${linkUrl}`;
+                    if (!linkMap.has(linkKey)) {
+                        graphData.links.push({
+                            source: node.id,
+                            target: linkUrl,
+                            color: 'rgba(255,255,255,0.3)'
+                        });
+                        linkMap.set(linkKey, true);
+                    }
+                }
+            });
+        });
+        
+        // Initialize 3D force graph
+        const Graph = ForceGraph3D()
+            .graphData(graphData)
+            .width(window.innerWidth)
+            .height(window.innerHeight)
+            .backgroundColor('#1a1a2e')
+            .nodeLabel('name')
+            .nodeColor('color')
+            .nodeVal('size')
+            .nodeRelSize(4)
+            .linkColor('color')
+            .linkOpacity(0.6)
+            .linkWidth(1.5)
+            .onNodeClick(showNodeInfo)
+            .onNodeHover(highlightNode)
+            .enableNavigationControls(true)
+            .showNavInfo(false)
+            .nodeLabel(node => `${node.name}<br/>Links: ${node.links.length}<br/>Size: ${node.contentLength} chars`);
+        
+        // Mount to DOM
+        Graph(document.getElementById('graph'));
+        
+        // Global variables for controls
+        let labelsVisible = true;
+        let isPaused = false;
+        
+        
+        // Show node information
+        function showNodeInfo(node) {
+            const panel = document.getElementById('infoPanel');
+            const title = document.getElementById('pageTitle');
+            const url = document.getElementById('pageUrl');
+            const stats = document.getElementById('pageStats');
+            const linksDiv = document.getElementById('pageLinks');
+            
+            title.textContent = node.title;
+            url.textContent = node.url;
+            
+            stats.innerHTML = `
+                <div><strong>Type:</strong> ${node.type}</div>
+                <div><strong>Content Length:</strong> ${node.contentLength.toLocaleString()} chars</div>
+                <div><strong>Outgoing Links:</strong> ${node.links.length}</div>
+            `;
+            
+            linksDiv.innerHTML = '';
+            if (node.links.length > 0) {
+                const linksTitle = document.createElement('strong');
+                linksTitle.textContent = 'Links to:';
+                linksDiv.appendChild(linksTitle);
+                
+                node.links.forEach(linkUrl => {
+                    const a = document.createElement('a');
+                    a.href = linkUrl;
+                    a.target = '_blank';
+                    a.textContent = linkUrl.replace('https://www.jean.land/', '');
+                    linksDiv.appendChild(a);
+                });
+            } else {
+                linksDiv.innerHTML = '<em>No outgoing links</em>';
+            }
+            
+            panel.style.display = 'block';
+        }
+        
+        // Highlight node and connections
+        function highlightNode(node) {
+            if (!node) return;
+            
+            // Highlight connected links
+            const connectedLinks = graphData.links.filter(link =>
+                link.source.id === node.id || link.target.id === node.id
+            );
+            
+            Graph.linkColor(link => {
+                if (connectedLinks.includes(link)) {
+                    return 'rgba(255, 107, 107, 0.8)';
+                }
+                return 'rgba(255, 255, 255, 0.3)';
+            });
+        }
+        
+        // Control functions
+        window.resetCamera = function() {
+            const homeNode = graphData.nodes.find(n => n.type === 'home');
+            if (homeNode) {
+                Graph.cameraPosition(
+                    { x: homeNode.x + 200, y: homeNode.y + 200, z: homeNode.z + 200 },
+                    homeNode,
+                    1000
+                );
+            }
+        };
+        
+        window.toggleLabels = function() {
+            labelsVisible = !labelsVisible;
+            if (labelsVisible) {
+                Graph.nodeLabel(node => `${node.name}<br/>Links: ${node.links.length}<br/>Size: ${node.contentLength} chars`);
+            } else {
+                Graph.nodeLabel('');
+            }
+        };
+        
+        window.centerOnHome = function() {
+            const homeNode = graphData.nodes.find(n => n.type === 'home');
+            if (homeNode) {
+                Graph.cameraPosition(
+                    { x: homeNode.x + 100, y: homeNode.y + 100, z: homeNode.z + 100 },
+                    homeNode,
+                    1000
+                );
+            }
+        };
+        
+        window.showNodesByType = function(type) {
+            const filteredNodes = graphData.nodes.filter(n => n.type === type);
+            const filteredLinks = graphData.links.filter(link => 
+                filteredNodes.some(n => n.id === link.source.id || n.id === link.source) &&
+                filteredNodes.some(n => n.id === link.target.id || n.id === link.target)
+            );
+            
+            Graph.graphData({ nodes: filteredNodes, links: filteredLinks });
+        };
+        
+        window.showAllNodes = function() {
+            Graph.graphData(graphData);
+        };
+        
+        window.pauseSimulation = function() {
+            isPaused = !isPaused;
+            if (isPaused) {
+                Graph.pauseAnimation();
+            } else {
+                Graph.resumeAnimation();
+            }
+        };
+        
+        // Close info panel when clicking outside
+        document.addEventListener('click', (event) => {
+            const panel = document.getElementById('infoPanel');
+            if (!panel.contains(event.target) && !event.target.closest('.controls')) {
+                panel.style.display = 'none';
+            }
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            Graph.width(window.innerWidth).height(window.innerHeight);
+        });
+        
+        // Set initial camera position
+        setTimeout(() => {
+            const homeNode = graphData.nodes.find(n => n.type === 'home');
+            if (homeNode) {
+                Graph.cameraPosition(
+                    { x: 0, y: 0, z: 400 },
+                    { x: 0, y: 0, z: 0 },
+                    1000
+                );
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

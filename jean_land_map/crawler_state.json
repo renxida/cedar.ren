@@ -1,0 +1,943 @@
+{
+  "visited_urls": [
+    "https://www.jean.land/subjects/white-snake",
+    "https://www.jean.land/subjects/reitia",
+    "https://www.jean.land/world/hangzhou",
+    "https://www.jean.land/objects.html",
+    "https://www.jean.land/world/new-york-city",
+    "https://www.jean.land/objects/metaphor.html",
+    "https://www.jean.land/subjects/tiresias.html",
+    "https://www.jean.land/subjects/lady-of-sorrows",
+    "https://www.jean.land/objects/sebald.html",
+    "https://www.jean.land/subjects/emily-dickinson.html",
+    "https://www.jean.land/subjects/pythia.html",
+    "https://www.jean.land/relations/lists.html",
+    "https://www.jean.land/relations",
+    "https://www.jean.land/objects/laundry.html",
+    "https://www.jean.land/subjects/white-snake.html",
+    "https://www.jean.land/world.html",
+    "https://www.jean.land/relations/writing",
+    "https://www.jean.land/subjects/chang-e",
+    "https://www.jean.land/subjects/relations/thiasus",
+    "https://www.jean.land/subjects/lotus-eaters.html",
+    "https://www.jean.land/relations/work",
+    "https://www.jean.land/objects/incels",
+    "https://www.jean.land/world/djerba",
+    "https://www.jean.land/objects/incels.html",
+    "https://www.jean.land/subjects/calabash-brothers",
+    "https://www.jean.land/index.html",
+    "https://www.jean.land/world/nyc.html",
+    "https://www.jean.land/objects/same-name-couples.html",
+    "https://www.jean.land/objects/recsys.html",
+    "https://www.jean.land/relations/speaking.html",
+    "https://www.jean.land/subjects/sibyls",
+    "https://www.jean.land/relations/reviews.html",
+    "https://www.jean.land/world/nyc",
+    "https://www.jean.land/subjects/calabash-brothers.html",
+    "https://www.jean.land/objects/thomas-turner.html",
+    "https://www.jean.land/subjects/tiresias",
+    "https://www.jean.land/objects/same-name-couples",
+    "https://www.jean.land/subjects/sibyls.html",
+    "https://www.jean.land/objects/mimbres.study.garden",
+    "https://www.jean.land/subjects/lotus-eaters",
+    "https://www.jean.land/objects/foucault.html",
+    "https://www.jean.land/subjects/chang-e.html",
+    "https://www.jean.land/jean",
+    "https://www.jean.land/world/world/lower-heavens",
+    "https://www.jean.land/subjects/kabeiroi.html",
+    "https://www.jean.land/relations.html",
+    "https://www.jean.land/world",
+    "https://www.jean.land/relations/www.jean.land/world",
+    "https://www.jean.land/world/lower-heavens",
+    "https://www.jean.land/subjects/skadi.html",
+    "https://www.jean.land/world/omelas",
+    "https://www.jean.land/subjects/roshanitsa.html",
+    "https://www.jean.land/relations/thiasus",
+    "https://www.jean.land/objects",
+    "https://www.jean.land/world/loop",
+    "https://www.jean.land/subjects/iphis",
+    "https://www.jean.land/objects/moby-dick-erasure-poetry.html",
+    "https://www.jean.land/relations/visitors.html",
+    "https://www.jean.land/subjects",
+    "https://www.jean.land/subjects/ometeotl",
+    "https://www.jean.land/objects/machine-learning.html",
+    "https://www.jean.land/subjects.html",
+    "https://www.jean.land/subjects/ruth-and-naomi.html",
+    "https://www.jean.land/subjects/ammar-ibn-yasir.html",
+    "https://www.jean.land/subjects/mithra.html",
+    "https://www.jean.land/subjects/reitia.html",
+    "https://www.jean.land/subjects/stribog.html",
+    "https://www.jean.land/",
+    "https://www.jean.land/subjects/lady-of-the-nine-skies.html",
+    "https://www.jean.land/world/firmament.html",
+    "https://www.jean.land/objects/docs.html",
+    "https://www.jean.land/subjects/iphis.html",
+    "https://www.jean.land/subjects/ometeotl.html",
+    "https://www.jean.land/objects/metaphor",
+    "https://www.jean.land/objects/advice.html",
+    "https://www.jean.land/subjects/thiasus.html",
+    "https://www.jean.land/world/firmament",
+    "https://www.jean.land/world/lower-heavens.html",
+    "https://www.jean.land/subjects/lady-of-sorrows.html"
+  ],
+  "url_queue": [],
+  "crawled_data": {
+    "https://www.jean.land/": {
+      "url": "https://www.jean.land/",
+      "title": "home - jean land",
+      "status_code": 200,
+      "content_length": 2689,
+      "links_found": [
+        "https://www.jean.land/subjects",
+        "https://www.jean.land/objects",
+        "https://www.jean.land/relations",
+        "https://www.jean.land/world",
+        "https://www.jean.land/jean",
+        "https://www.jean.land/objects/metaphor"
+      ],
+      "crawl_time": 1751694514.0729852
+    },
+    "https://www.jean.land/subjects": {
+      "url": "https://www.jean.land/subjects",
+      "title": "subjects - jean land",
+      "status_code": 200,
+      "content_length": 3790,
+      "links_found": [
+        "https://www.jean.land/objects",
+        "https://www.jean.land/relations",
+        "https://www.jean.land/world",
+        "https://www.jean.land/subjects/white-snake.html",
+        "https://www.jean.land/subjects/calabash-brothers.html",
+        "https://www.jean.land/subjects/lady-of-the-nine-skies.html",
+        "https://www.jean.land/subjects/ometeotl",
+        "https://www.jean.land/subjects/mithra.html",
+        "https://www.jean.land/subjects/lady-of-sorrows.html",
+        "https://www.jean.land/subjects/chang-e.html",
+        "https://www.jean.land/subjects/emily-dickinson.html",
+        "https://www.jean.land/subjects/ruth-and-naomi.html",
+        "https://www.jean.land/subjects/iphis.html",
+        "https://www.jean.land/subjects/tiresias.html",
+        "https://www.jean.land/subjects/pythia.html",
+        "https://www.jean.land/subjects/roshanitsa.html",
+        "https://www.jean.land/subjects/stribog.html",
+        "https://www.jean.land/subjects/ammar-ibn-yasir.html",
+        "https://www.jean.land/subjects/reitia.html",
+        "https://www.jean.land/subjects/skadi.html",
+        "https://www.jean.land/subjects/sibyls.html",
+        "https://www.jean.land/subjects/lotus-eaters.html",
+        "https://www.jean.land/subjects/thiasus.html",
+        "https://www.jean.land/subjects/kabeiroi.html"
+      ],
+      "crawl_time": 1751694515.1743438
+    },
+    "https://www.jean.land/objects": {
+      "url": "https://www.jean.land/objects",
+      "title": "Objects - jean land",
+      "status_code": 200,
+      "content_length": 3186,
+      "links_found": [
+        "https://www.jean.land/relations",
+        "https://www.jean.land/world",
+        "https://www.jean.land/objects.html",
+        "https://www.jean.land/objects/advice.html",
+        "https://www.jean.land/objects/same-name-couples.html",
+        "https://www.jean.land/objects/docs.html",
+        "https://www.jean.land/objects/foucault.html",
+        "https://www.jean.land/objects/incels.html",
+        "https://www.jean.land/objects/laundry.html",
+        "https://www.jean.land/objects/machine-learning.html",
+        "https://www.jean.land/objects/metaphor.html",
+        "https://www.jean.land/objects/moby-dick-erasure-poetry.html",
+        "https://www.jean.land/objects/recsys.html",
+        "https://www.jean.land/objects/sebald.html",
+        "https://www.jean.land/objects/thomas-turner.html"
+      ],
+      "crawl_time": 1751694516.262677
+    },
+    "https://www.jean.land/relations": {
+      "url": "https://www.jean.land/relations",
+      "title": "relations - jean land",
+      "status_code": 200,
+      "content_length": 2904,
+      "links_found": [
+        "https://www.jean.land/world",
+        "https://www.jean.land/relations.html",
+        "https://www.jean.land/objects.html",
+        "https://www.jean.land/relations/work",
+        "https://www.jean.land/relations/writing",
+        "https://www.jean.land/relations/lists.html",
+        "https://www.jean.land/relations/reviews.html",
+        "https://www.jean.land/relations/speaking.html",
+        "https://www.jean.land/relations/visitors.html"
+      ],
+      "crawl_time": 1751694517.3422248
+    },
+    "https://www.jean.land/world": {
+      "url": "https://www.jean.land/world",
+      "title": "the world - jean land",
+      "status_code": 200,
+      "content_length": 3136,
+      "links_found": [
+        "https://www.jean.land/world.html",
+        "https://www.jean.land/world.html",
+        "https://www.jean.land/world/lower-heavens",
+        "https://www.jean.land/world/loop",
+        "https://www.jean.land/world/omelas",
+        "https://www.jean.land/world/firmament",
+        "https://www.jean.land/world/djerba",
+        "https://www.jean.land/world/nyc"
+      ],
+      "crawl_time": 1751694518.416727
+    },
+    "https://www.jean.land/jean": {
+      "url": "https://www.jean.land/jean",
+      "title": "jean - jean land",
+      "status_code": 200,
+      "content_length": 3440,
+      "links_found": [
+        "https://www.jean.land/world/lower-heavens",
+        "https://www.jean.land/world/omelas",
+        "https://www.jean.land/world/firmament",
+        "https://www.jean.land/world/djerba",
+        "https://www.jean.land/world/new-york-city",
+        "https://www.jean.land/subjects.html",
+        "https://www.jean.land/objects/incels",
+        "https://www.jean.land/objects/same-name-couples"
+      ],
+      "crawl_time": 1751694519.5001101
+    },
+    "https://www.jean.land/objects/metaphor": {
+      "url": "https://www.jean.land/objects/metaphor",
+      "title": "metaphor - jean land",
+      "status_code": 200,
+      "content_length": 2925,
+      "links_found": [],
+      "crawl_time": 1751694520.583796
+    },
+    "https://www.jean.land/subjects/white-snake.html": {
+      "url": "https://www.jean.land/subjects/white-snake.html",
+      "title": "the white snake - jean land",
+      "status_code": 200,
+      "content_length": 3091,
+      "links_found": [
+        "https://www.jean.land/world/hangzhou",
+        "https://www.jean.land/subjects/calabash-brothers"
+      ],
+      "crawl_time": 1751694521.6501389
+    },
+    "https://www.jean.land/subjects/calabash-brothers.html": {
+      "url": "https://www.jean.land/subjects/calabash-brothers.html",
+      "title": "calabash brothers - jean land",
+      "status_code": 200,
+      "content_length": 4713,
+      "links_found": [
+        "https://www.jean.land/subjects/white-snake",
+        "https://www.jean.land/subjects/white-snake",
+        "https://www.jean.land/index.html"
+      ],
+      "crawl_time": 1751694522.732217
+    },
+    "https://www.jean.land/subjects/lady-of-the-nine-skies.html": {
+      "url": "https://www.jean.land/subjects/lady-of-the-nine-skies.html",
+      "title": "lady of the nine skies - jean land",
+      "status_code": 200,
+      "content_length": 3123,
+      "links_found": [
+        "https://www.jean.land/world/lower-heavens.html",
+        "https://www.jean.land/world.html"
+      ],
+      "crawl_time": 1751694523.808175
+    },
+    "https://www.jean.land/subjects/ometeotl": {
+      "url": "https://www.jean.land/subjects/ometeotl",
+      "title": "ometeotl - jean land",
+      "status_code": 200,
+      "content_length": 2663,
+      "links_found": [],
+      "crawl_time": 1751694524.895095
+    },
+    "https://www.jean.land/subjects/mithra.html": {
+      "url": "https://www.jean.land/subjects/mithra.html",
+      "title": "mithra - jean land",
+      "status_code": 200,
+      "content_length": 3030,
+      "links_found": [
+        "https://www.jean.land/subjects/lady-of-sorrows",
+        "https://www.jean.land/world/nyc"
+      ],
+      "crawl_time": 1751694526.0023549
+    },
+    "https://www.jean.land/subjects/lady-of-sorrows.html": {
+      "url": "https://www.jean.land/subjects/lady-of-sorrows.html",
+      "title": "our lady of sorrows - jean land",
+      "status_code": 200,
+      "content_length": 2973,
+      "links_found": [
+        "https://www.jean.land/subjects/reitia"
+      ],
+      "crawl_time": 1751694527.1593559
+    },
+    "https://www.jean.land/subjects/chang-e.html": {
+      "url": "https://www.jean.land/subjects/chang-e.html",
+      "title": "chang'e - jean land",
+      "status_code": 200,
+      "content_length": 2890,
+      "links_found": [
+        "https://www.jean.land/world/nyc"
+      ],
+      "crawl_time": 1751694528.229357
+    },
+    "https://www.jean.land/subjects/emily-dickinson.html": {
+      "url": "https://www.jean.land/subjects/emily-dickinson.html",
+      "title": "emily dickinson - jean land",
+      "status_code": 200,
+      "content_length": 3006,
+      "links_found": [
+        "https://www.jean.land/subjects/roshanitsa.html"
+      ],
+      "crawl_time": 1751694529.3044999
+    },
+    "https://www.jean.land/subjects/ruth-and-naomi.html": {
+      "url": "https://www.jean.land/subjects/ruth-and-naomi.html",
+      "title": "ruth and naomi - jean land",
+      "status_code": 200,
+      "content_length": 3184,
+      "links_found": [
+        "https://www.jean.land/subjects/tiresias",
+        "https://www.jean.land/world/firmament",
+        "https://www.jean.land/world/djerba"
+      ],
+      "crawl_time": 1751694530.3809779
+    },
+    "https://www.jean.land/subjects/iphis.html": {
+      "url": "https://www.jean.land/subjects/iphis.html",
+      "title": "iphis - jean land",
+      "status_code": 200,
+      "content_length": 3048,
+      "links_found": [
+        "https://www.jean.land/subjects/thiasus.html",
+        "https://www.jean.land/relations/thiasus"
+      ],
+      "crawl_time": 1751694531.445951
+    },
+    "https://www.jean.land/subjects/tiresias.html": {
+      "url": "https://www.jean.land/subjects/tiresias.html",
+      "title": "tiresias - jean land",
+      "status_code": 200,
+      "content_length": 2895,
+      "links_found": [
+        "https://www.jean.land/subjects/iphis",
+        "https://www.jean.land/subjects/relations/thiasus"
+      ],
+      "crawl_time": 1751694532.514223
+    },
+    "https://www.jean.land/subjects/pythia.html": {
+      "url": "https://www.jean.land/subjects/pythia.html",
+      "title": "pythia - jean land",
+      "status_code": 200,
+      "content_length": 3111,
+      "links_found": [
+        "https://www.jean.land/world/firmament.html"
+      ],
+      "crawl_time": 1751694533.581057
+    },
+    "https://www.jean.land/subjects/roshanitsa.html": {
+      "url": "https://www.jean.land/subjects/roshanitsa.html",
+      "title": "roshanitsa - jean land",
+      "status_code": 200,
+      "content_length": 2933,
+      "links_found": [
+        "https://www.jean.land/world/lower-heavens.html"
+      ],
+      "crawl_time": 1751694534.651665
+    },
+    "https://www.jean.land/subjects/stribog.html": {
+      "url": "https://www.jean.land/subjects/stribog.html",
+      "title": "stribog - jean land",
+      "status_code": 200,
+      "content_length": 2990,
+      "links_found": [
+        "https://www.jean.land/index.html"
+      ],
+      "crawl_time": 1751694535.7174568
+    },
+    "https://www.jean.land/subjects/ammar-ibn-yasir.html": {
+      "url": "https://www.jean.land/subjects/ammar-ibn-yasir.html",
+      "title": "ammar ibn yasir - jean land",
+      "status_code": 200,
+      "content_length": 3304,
+      "links_found": [
+        "https://www.jean.land/subjects/ometeotl.html"
+      ],
+      "crawl_time": 1751694536.7826931
+    },
+    "https://www.jean.land/subjects/reitia.html": {
+      "url": "https://www.jean.land/subjects/reitia.html",
+      "title": "reitia - jean land",
+      "status_code": 200,
+      "content_length": 3175,
+      "links_found": [
+        "https://www.jean.land/index.html",
+        "https://www.jean.land/index.html",
+        "https://www.jean.land/subjects/lady-of-sorrows"
+      ],
+      "crawl_time": 1751694537.856653
+    },
+    "https://www.jean.land/subjects/skadi.html": {
+      "url": "https://www.jean.land/subjects/skadi.html",
+      "title": "ska\u00f0i - jean land",
+      "status_code": 200,
+      "content_length": 2920,
+      "links_found": [],
+      "crawl_time": 1751694538.934481
+    },
+    "https://www.jean.land/subjects/sibyls.html": {
+      "url": "https://www.jean.land/subjects/sibyls.html",
+      "title": "the sibyls - jean land",
+      "status_code": 200,
+      "content_length": 2984,
+      "links_found": [
+        "https://www.jean.land/world/djerba",
+        "https://www.jean.land/subjects/lady-of-sorrows"
+      ],
+      "crawl_time": 1751694540.012137
+    },
+    "https://www.jean.land/subjects/lotus-eaters.html": {
+      "url": "https://www.jean.land/subjects/lotus-eaters.html",
+      "title": "the lotus-eaters - jean land",
+      "status_code": 200,
+      "content_length": 2853,
+      "links_found": [
+        "https://www.jean.land/world/djerba"
+      ],
+      "crawl_time": 1751694541.084586
+    },
+    "https://www.jean.land/subjects/thiasus.html": {
+      "url": "https://www.jean.land/subjects/thiasus.html",
+      "title": "the thiasus - jean land",
+      "status_code": 200,
+      "content_length": 3081,
+      "links_found": [
+        "https://www.jean.land/world/djerba",
+        "https://www.jean.land/world/firmament",
+        "https://www.jean.land/world/djerba",
+        "https://www.jean.land/world/firmament",
+        "https://www.jean.land/world/nyc"
+      ],
+      "crawl_time": 1751694542.161396
+    },
+    "https://www.jean.land/subjects/kabeiroi.html": {
+      "url": "https://www.jean.land/subjects/kabeiroi.html",
+      "title": "the kabeiroi - jean land",
+      "status_code": 200,
+      "content_length": 2866,
+      "links_found": [
+        "https://www.jean.land/world/firmament.html"
+      ],
+      "crawl_time": 1751694543.232314
+    },
+    "https://www.jean.land/objects.html": {
+      "url": "https://www.jean.land/objects.html",
+      "title": "Objects - jean land",
+      "status_code": 200,
+      "content_length": 3186,
+      "links_found": [
+        "https://www.jean.land/objects/advice.html",
+        "https://www.jean.land/objects/same-name-couples.html",
+        "https://www.jean.land/objects/docs.html",
+        "https://www.jean.land/objects/foucault.html",
+        "https://www.jean.land/objects/incels.html",
+        "https://www.jean.land/objects/laundry.html",
+        "https://www.jean.land/objects/machine-learning.html",
+        "https://www.jean.land/objects/metaphor.html",
+        "https://www.jean.land/objects/moby-dick-erasure-poetry.html",
+        "https://www.jean.land/objects/recsys.html",
+        "https://www.jean.land/objects/sebald.html",
+        "https://www.jean.land/objects/thomas-turner.html"
+      ],
+      "crawl_time": 1751694544.307443
+    },
+    "https://www.jean.land/objects/advice.html": {
+      "url": "https://www.jean.land/objects/advice.html",
+      "title": "advice - jean land",
+      "status_code": 200,
+      "content_length": 4107,
+      "links_found": [],
+      "crawl_time": 1751694545.394345
+    },
+    "https://www.jean.land/objects/same-name-couples.html": {
+      "url": "https://www.jean.land/objects/same-name-couples.html",
+      "title": "couples with the same names - jean land",
+      "status_code": 200,
+      "content_length": 6157,
+      "links_found": [],
+      "crawl_time": 1751694546.479029
+    },
+    "https://www.jean.land/objects/docs.html": {
+      "url": "https://www.jean.land/objects/docs.html",
+      "title": "docs - jean land",
+      "status_code": 200,
+      "content_length": 3342,
+      "links_found": [],
+      "crawl_time": 1751694547.560961
+    },
+    "https://www.jean.land/objects/foucault.html": {
+      "url": "https://www.jean.land/objects/foucault.html",
+      "title": "foucault - jean land",
+      "status_code": 200,
+      "content_length": 10169,
+      "links_found": [
+        "https://www.jean.land/subjects.html",
+        "https://www.jean.land/relations.html",
+        "https://www.jean.land/relations.html",
+        "https://www.jean.land/relations.html",
+        "https://www.jean.land/relations.html",
+        "https://www.jean.land/relations.html",
+        "https://www.jean.land/world.html"
+      ],
+      "crawl_time": 1751694548.63278
+    },
+    "https://www.jean.land/objects/incels.html": {
+      "url": "https://www.jean.land/objects/incels.html",
+      "title": "incel theory - jean land",
+      "status_code": 200,
+      "content_length": 29820,
+      "links_found": [
+        "https://www.jean.land/objects/mimbres.study.garden",
+        "https://www.jean.land/relations.html",
+        "https://www.jean.land/world.html",
+        "https://www.jean.land/subjects.html",
+        "https://www.jean.land/subjects.html",
+        "https://www.jean.land/world.html",
+        "https://www.jean.land/subjects.html",
+        "https://www.jean.land/relations.html"
+      ],
+      "crawl_time": 1751694549.7141619
+    },
+    "https://www.jean.land/objects/laundry.html": {
+      "url": "https://www.jean.land/objects/laundry.html",
+      "title": "laundry and taxes - jean land",
+      "status_code": 200,
+      "content_length": 13065,
+      "links_found": [
+        "https://www.jean.land/index.html",
+        "https://www.jean.land/relations/speaking.html",
+        "https://www.jean.land/world.html"
+      ],
+      "crawl_time": 1751694550.795546
+    },
+    "https://www.jean.land/objects/machine-learning.html": {
+      "url": "https://www.jean.land/objects/machine-learning.html",
+      "title": "machine learning - jean land",
+      "status_code": 200,
+      "content_length": 4157,
+      "links_found": [],
+      "crawl_time": 1751694551.991776
+    },
+    "https://www.jean.land/objects/metaphor.html": {
+      "url": "https://www.jean.land/objects/metaphor.html",
+      "title": "metaphor - jean land",
+      "status_code": 200,
+      "content_length": 2925,
+      "links_found": [],
+      "crawl_time": 1751694553.0718122
+    },
+    "https://www.jean.land/objects/moby-dick-erasure-poetry.html": {
+      "url": "https://www.jean.land/objects/moby-dick-erasure-poetry.html",
+      "title": "moby dick erasure poetry - jean land",
+      "status_code": 200,
+      "content_length": 25813,
+      "links_found": [
+        "https://www.jean.land/world.html",
+        "https://www.jean.land/world.html",
+        "https://www.jean.land/index.html",
+        "https://www.jean.land/index.html",
+        "https://www.jean.land/world.html",
+        "https://www.jean.land/index.html"
+      ],
+      "crawl_time": 1751694554.1631749
+    },
+    "https://www.jean.land/objects/recsys.html": {
+      "url": "https://www.jean.land/objects/recsys.html",
+      "title": "recsys - jean land",
+      "status_code": 200,
+      "content_length": 3022,
+      "links_found": [],
+      "crawl_time": 1751694555.245132
+    },
+    "https://www.jean.land/objects/sebald.html": {
+      "url": "https://www.jean.land/objects/sebald.html",
+      "title": "sebald - jean land",
+      "status_code": 200,
+      "content_length": 4487,
+      "links_found": [],
+      "crawl_time": 1751694556.3207839
+    },
+    "https://www.jean.land/objects/thomas-turner.html": {
+      "url": "https://www.jean.land/objects/thomas-turner.html",
+      "title": "thomas turner - jean land",
+      "status_code": 200,
+      "content_length": 31800,
+      "links_found": [
+        "https://www.jean.land/index.html",
+        "https://www.jean.land/index.html",
+        "https://www.jean.land/index.html",
+        "https://www.jean.land/index.html",
+        "https://www.jean.land/index.html",
+        "https://www.jean.land/index.html",
+        "https://www.jean.land/index.html",
+        "https://www.jean.land/index.html",
+        "https://www.jean.land/index.html",
+        "https://www.jean.land/relations/visitors.html",
+        "https://www.jean.land/world.html",
+        "https://www.jean.land/index.html"
+      ],
+      "crawl_time": 1751694557.527005
+    },
+    "https://www.jean.land/relations.html": {
+      "url": "https://www.jean.land/relations.html",
+      "title": "relations - jean land",
+      "status_code": 200,
+      "content_length": 2904,
+      "links_found": [
+        "https://www.jean.land/relations/work",
+        "https://www.jean.land/relations/writing",
+        "https://www.jean.land/relations/lists.html",
+        "https://www.jean.land/relations/reviews.html",
+        "https://www.jean.land/relations/speaking.html",
+        "https://www.jean.land/relations/visitors.html"
+      ],
+      "crawl_time": 1751694558.606136
+    },
+    "https://www.jean.land/relations/work": {
+      "url": "https://www.jean.land/relations/work",
+      "title": "work - jean land",
+      "status_code": 200,
+      "content_length": 3945,
+      "links_found": [
+        "https://www.jean.land/relations/www.jean.land/world",
+        "https://www.jean.land/relations/www.jean.land/world",
+        "https://www.jean.land/subjects/sibyls"
+      ],
+      "crawl_time": 1751694559.6806872
+    },
+    "https://www.jean.land/relations/writing": {
+      "url": "https://www.jean.land/relations/writing",
+      "title": "writing - jean land",
+      "status_code": 200,
+      "content_length": 3634,
+      "links_found": [
+        "https://www.jean.land/relations/reviews.html",
+        "https://www.jean.land/relations/reviews.html",
+        "https://www.jean.land/relations/reviews.html"
+      ],
+      "crawl_time": 1751694560.752987
+    },
+    "https://www.jean.land/relations/lists.html": {
+      "url": "https://www.jean.land/relations/lists.html",
+      "title": "lists - jean land",
+      "status_code": 200,
+      "content_length": 2939,
+      "links_found": [],
+      "crawl_time": 1751694561.840837
+    },
+    "https://www.jean.land/relations/reviews.html": {
+      "url": "https://www.jean.land/relations/reviews.html",
+      "title": "reviews - jean land",
+      "status_code": 200,
+      "content_length": 2773,
+      "links_found": [],
+      "crawl_time": 1751694562.912721
+    },
+    "https://www.jean.land/relations/speaking.html": {
+      "url": "https://www.jean.land/relations/speaking.html",
+      "title": "speaking - jean land",
+      "status_code": 200,
+      "content_length": 2651,
+      "links_found": [],
+      "crawl_time": 1751694563.991013
+    },
+    "https://www.jean.land/relations/visitors.html": {
+      "url": "https://www.jean.land/relations/visitors.html",
+      "title": "visitors - jean land",
+      "status_code": 200,
+      "content_length": 2778,
+      "links_found": [],
+      "crawl_time": 1751694565.068046
+    },
+    "https://www.jean.land/world.html": {
+      "url": "https://www.jean.land/world.html",
+      "title": "the world - jean land",
+      "status_code": 200,
+      "content_length": 3136,
+      "links_found": [
+        "https://www.jean.land/world/lower-heavens",
+        "https://www.jean.land/world/loop",
+        "https://www.jean.land/world/omelas",
+        "https://www.jean.land/world/firmament",
+        "https://www.jean.land/world/djerba",
+        "https://www.jean.land/world/nyc"
+      ],
+      "crawl_time": 1751694566.148897
+    },
+    "https://www.jean.land/world/lower-heavens": {
+      "url": "https://www.jean.land/world/lower-heavens",
+      "title": "the lower heavens - jean land",
+      "status_code": 200,
+      "content_length": 2933,
+      "links_found": [
+        "https://www.jean.land/world/hangzhou",
+        "https://www.jean.land/index.html",
+        "https://www.jean.land/world/firmament",
+        "https://www.jean.land/subjects/chang-e"
+      ],
+      "crawl_time": 1751694567.227582
+    },
+    "https://www.jean.land/world/loop": {
+      "url": "https://www.jean.land/world/loop",
+      "title": "loop - jean land",
+      "status_code": 200,
+      "content_length": 3261,
+      "links_found": [],
+      "crawl_time": 1751694568.30745
+    },
+    "https://www.jean.land/world/omelas": {
+      "url": "https://www.jean.land/world/omelas",
+      "title": "omelas - jean land",
+      "status_code": 200,
+      "content_length": 2878,
+      "links_found": [
+        "https://www.jean.land/world/world/lower-heavens"
+      ],
+      "crawl_time": 1751694569.380129
+    },
+    "https://www.jean.land/world/firmament": {
+      "url": "https://www.jean.land/world/firmament",
+      "title": "the firmament - jean land",
+      "status_code": 200,
+      "content_length": 2613,
+      "links_found": [
+        "https://www.jean.land/world/firmament.html",
+        "https://www.jean.land/world/djerba",
+        "https://www.jean.land/world/nyc"
+      ],
+      "crawl_time": 1751694570.449962
+    },
+    "https://www.jean.land/world/djerba": {
+      "url": "https://www.jean.land/world/djerba",
+      "title": "the island of djerba - jean land",
+      "status_code": 200,
+      "content_length": 3406,
+      "links_found": [
+        "https://www.jean.land/subjects/lotus-eaters",
+        "https://www.jean.land/subjects/sibyls"
+      ],
+      "crawl_time": 1751694571.525415
+    },
+    "https://www.jean.land/world/nyc": {
+      "url": "https://www.jean.land/world/nyc",
+      "title": "new york city - jean land",
+      "status_code": 200,
+      "content_length": 2558,
+      "links_found": [
+        "https://www.jean.land/world/nyc.html"
+      ],
+      "crawl_time": 1751694572.672565
+    },
+    "https://www.jean.land/world/new-york-city": {
+      "url": "https://www.jean.land/world/new-york-city",
+      "error": "404 Client Error: Not Found for url: https://www.jean.land/world/new-york-city",
+      "status_code": -1,
+      "crawl_time": 1751694573.7535481
+    },
+    "https://www.jean.land/subjects.html": {
+      "url": "https://www.jean.land/subjects.html",
+      "title": "subjects - jean land",
+      "status_code": 200,
+      "content_length": 3790,
+      "links_found": [],
+      "crawl_time": 1751694574.829531
+    },
+    "https://www.jean.land/objects/incels": {
+      "url": "https://www.jean.land/objects/incels",
+      "title": "incel theory - jean land",
+      "status_code": 200,
+      "content_length": 29820,
+      "links_found": [
+        "https://www.jean.land/objects/mimbres.study.garden"
+      ],
+      "crawl_time": 1751694575.914706
+    },
+    "https://www.jean.land/objects/same-name-couples": {
+      "url": "https://www.jean.land/objects/same-name-couples",
+      "title": "couples with the same names - jean land",
+      "status_code": 200,
+      "content_length": 6157,
+      "links_found": [],
+      "crawl_time": 1751694576.995281
+    },
+    "https://www.jean.land/world/hangzhou": {
+      "url": "https://www.jean.land/world/hangzhou",
+      "title": "hangzhou - jean land",
+      "status_code": 200,
+      "content_length": 2526,
+      "links_found": [],
+      "crawl_time": 1751694578.0718029
+    },
+    "https://www.jean.land/subjects/calabash-brothers": {
+      "url": "https://www.jean.land/subjects/calabash-brothers",
+      "title": "calabash brothers - jean land",
+      "status_code": 200,
+      "content_length": 4713,
+      "links_found": [
+        "https://www.jean.land/subjects/white-snake",
+        "https://www.jean.land/subjects/white-snake",
+        "https://www.jean.land/index.html"
+      ],
+      "crawl_time": 1751694579.160987
+    },
+    "https://www.jean.land/subjects/white-snake": {
+      "url": "https://www.jean.land/subjects/white-snake",
+      "title": "the white snake - jean land",
+      "status_code": 200,
+      "content_length": 3091,
+      "links_found": [],
+      "crawl_time": 1751694580.23789
+    },
+    "https://www.jean.land/index.html": {
+      "url": "https://www.jean.land/index.html",
+      "title": "home - jean land",
+      "status_code": 200,
+      "content_length": 2689,
+      "links_found": [],
+      "crawl_time": 1751694581.3079062
+    },
+    "https://www.jean.land/world/lower-heavens.html": {
+      "url": "https://www.jean.land/world/lower-heavens.html",
+      "title": "the lower heavens - jean land",
+      "status_code": 200,
+      "content_length": 2933,
+      "links_found": [
+        "https://www.jean.land/subjects/chang-e"
+      ],
+      "crawl_time": 1751694582.375113
+    },
+    "https://www.jean.land/subjects/lady-of-sorrows": {
+      "url": "https://www.jean.land/subjects/lady-of-sorrows",
+      "title": "our lady of sorrows - jean land",
+      "status_code": 200,
+      "content_length": 2973,
+      "links_found": [
+        "https://www.jean.land/subjects/reitia"
+      ],
+      "crawl_time": 1751694583.540648
+    },
+    "https://www.jean.land/subjects/reitia": {
+      "url": "https://www.jean.land/subjects/reitia",
+      "title": "reitia - jean land",
+      "status_code": 200,
+      "content_length": 3175,
+      "links_found": [],
+      "crawl_time": 1751694584.703537
+    },
+    "https://www.jean.land/subjects/tiresias": {
+      "url": "https://www.jean.land/subjects/tiresias",
+      "title": "tiresias - jean land",
+      "status_code": 200,
+      "content_length": 2895,
+      "links_found": [
+        "https://www.jean.land/subjects/iphis",
+        "https://www.jean.land/subjects/relations/thiasus"
+      ],
+      "crawl_time": 1751694585.85775
+    },
+    "https://www.jean.land/relations/thiasus": {
+      "url": "https://www.jean.land/relations/thiasus",
+      "error": "404 Client Error: Not Found for url: https://www.jean.land/relations/thiasus",
+      "status_code": -1,
+      "crawl_time": 1751694586.924764
+    },
+    "https://www.jean.land/subjects/iphis": {
+      "url": "https://www.jean.land/subjects/iphis",
+      "title": "iphis - jean land",
+      "status_code": 200,
+      "content_length": 3048,
+      "links_found": [],
+      "crawl_time": 1751694588.092841
+    },
+    "https://www.jean.land/subjects/relations/thiasus": {
+      "url": "https://www.jean.land/subjects/relations/thiasus",
+      "error": "404 Client Error: Not Found for url: https://www.jean.land/subjects/relations/thiasus",
+      "status_code": -1,
+      "crawl_time": 1751694589.16129
+    },
+    "https://www.jean.land/world/firmament.html": {
+      "url": "https://www.jean.land/world/firmament.html",
+      "title": "the firmament - jean land",
+      "status_code": 200,
+      "content_length": 2613,
+      "links_found": [],
+      "crawl_time": 1751694590.232996
+    },
+    "https://www.jean.land/subjects/ometeotl.html": {
+      "url": "https://www.jean.land/subjects/ometeotl.html",
+      "title": "ometeotl - jean land",
+      "status_code": 200,
+      "content_length": 2663,
+      "links_found": [],
+      "crawl_time": 1751694591.299923
+    },
+    "https://www.jean.land/objects/mimbres.study.garden": {
+      "url": "https://www.jean.land/objects/mimbres.study.garden",
+      "error": "404 Client Error: Not Found for url: https://www.jean.land/objects/mimbres.study.garden",
+      "status_code": -1,
+      "crawl_time": 1751694592.363132
+    },
+    "https://www.jean.land/relations/www.jean.land/world": {
+      "url": "https://www.jean.land/relations/www.jean.land/world",
+      "error": "404 Client Error: Not Found for url: https://www.jean.land/relations/www.jean.land/world",
+      "status_code": -1,
+      "crawl_time": 1751694593.428247
+    },
+    "https://www.jean.land/subjects/sibyls": {
+      "url": "https://www.jean.land/subjects/sibyls",
+      "title": "the sibyls - jean land",
+      "status_code": 200,
+      "content_length": 2984,
+      "links_found": [],
+      "crawl_time": 1751694594.50631
+    },
+    "https://www.jean.land/subjects/chang-e": {
+      "url": "https://www.jean.land/subjects/chang-e",
+      "title": "chang'e - jean land",
+      "status_code": 200,
+      "content_length": 2890,
+      "links_found": [],
+      "crawl_time": 1751694595.576205
+    },
+    "https://www.jean.land/world/world/lower-heavens": {
+      "url": "https://www.jean.land/world/world/lower-heavens",
+      "error": "404 Client Error: Not Found for url: https://www.jean.land/world/world/lower-heavens",
+      "status_code": -1,
+      "crawl_time": 1751694596.641244
+    },
+    "https://www.jean.land/subjects/lotus-eaters": {
+      "url": "https://www.jean.land/subjects/lotus-eaters",
+      "title": "the lotus-eaters - jean land",
+      "status_code": 200,
+      "content_length": 2853,
+      "links_found": [],
+      "crawl_time": 1751694597.7100449
+    },
+    "https://www.jean.land/world/nyc.html": {
+      "url": "https://www.jean.land/world/nyc.html",
+      "title": "new york city - jean land",
+      "status_code": 200,
+      "content_length": 2558,
+      "links_found": [],
+      "crawl_time": 1751694598.778722
+    }
+  },
+  "start_url": "https://www.jean.land/",
+  "max_depth": 5
+}
