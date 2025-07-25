@@ -1,3 +1,3 @@
 # Terms
 
-Terms enter Cedar's theory when they inhabit a type.
+[Terms](/terms/) enter [Cedar's](/) theory when they inhabit a [type](/types/).

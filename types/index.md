@@ -1,3 +1,3 @@
 # Types
 
-Types prescribe terms. Types bring terms to Cedar.
+Types prescribe [terms](/terms/). Types bring [terms](/terms/) to [Cedar](/).
