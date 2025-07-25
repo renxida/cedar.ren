@@ -3,3 +3,5 @@
 Cedar lives in the [Blessed Hills](/terms/blessed_hills.md).
 
 Cedar likes [types](/types/) and the [terms](/terms/) that inhabit them.
+
+[Cedar is a Person](/) is inspired by [jean land](https://jean.land).
