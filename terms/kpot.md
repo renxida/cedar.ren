@@ -5,9 +5,13 @@ Pottery camp! One month!
 - Make the perfect pot!
 - Make 1000 pots. Go.
 
-Guess who ends up making the better final pot? The 1000-potters. They probably didn't get anywhere close to 1000 pots, but they practiced a bunch, tried a lot of things, broke a lot of things. Got better faster.
+Guess who ends up making the better final pot? The kpotters!
 
-1-potter planned. k-potters potted.
+They practiced a bunch, tried a lot of things, broke a lot of things. Got better faster.
+
+While the 1-potter planned and thought really really hard.
+
+Don't be planning.
 
 Go pot!
 
