@@ -1,4 +1,4 @@
-<h1> Cedar is A Person </h1>
+# Cedar is A Person
 
 Cedar lives in Bernal Heights, San Francisco.
 
@@ -9,4 +9,3 @@ The CIA, NSA, FBI, and probably some Chinese agencies already has Cedar's locati
 - give Cedar your GMail so he can share his location with you
 
 Cedar likes to read code and explain pictures.
-
