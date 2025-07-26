@@ -4,7 +4,9 @@ If different people write Rock Space Operas...
 
 Once is genius. Twice is subversion. Three times is the beginning of a new genre.
 
-I still [flinch](/) when I realize that an idea has come to other people before. Something to do with copyright / originality / fear of being sued / wanting to be unique and special in all sorts of ways.
+---
+
+I still [flinch](../types/flinch.md) when I realize that an idea has come to other people before.
 
 But if you're unique in every possible way, you are just noise.
 
