@@ -1,4 +1,4 @@
-The fairy queen sent me these pictures.
+Luciernaga sent me these pictures.
 
 They have me deeply tickled.
 
@@ -7,10 +7,6 @@ Splice poetry, almost. The evangelical transition from divine to mundane cut off
 "Jesus loves ~~you~~ pizza"
 
 ![Jesus loves pizza](jesus_loves_pizza.jpg)
-
-"Believe in Jesus, receive ~~eternal life~~ Vietnamese bride, $25k.
-
-![Believe in Jesus, receive Vietnamese bride](believe_in_jesus_receive_vietnamese_bride.webp)
 
 "Jesus sacrificed himself and resurrected [the japanese rhinoceros bettle](https://en.wikipedia.org/wiki/Japanese_rhinoceros_beetle)"
 
@@ -26,6 +22,6 @@ Splice poetry, almost. The evangelical transition from divine to mundane cut off
 
 and, the worst one of them all,
 
-"Believe in Jesus, get ... a Vietnamese bride"
+"Believe in Jesus, receive ~~eternal life~~ Vietnamese bride, $25k.
 
 ![Believe in Jesus, receive Vietnamese bride](believe_in_jesus_receive_vietnamese_bride.webp)
