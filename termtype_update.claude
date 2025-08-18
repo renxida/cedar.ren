@@ -1,0 +1,57 @@
+# Update Terms and Types Index Pages
+
+## Task
+Update the index pages for `/terms/index.md` and `/types/index.md` to include links to all pages in their respective directories.
+
+## Instructions
+
+### For `/terms/index.md`:
+1. Find all pages under the `/terms/` directory (excluding `index.md` itself)
+2. After the existing introductory text, add a section titled `## All Terms`
+3. List each term as a bullet point with the format:
+   - `- [Term Name](/terms/path_to_file)`
+   - Use the actual filename (without extension) as the display name, replacing underscores with spaces and capitalizing appropriately
+   - Include files with any extension (.md, .txt, etc.)
+   - Sort alphabetically
+
+### For `/types/index.md`:
+1. Find all pages under the `/types/` directory (excluding `index.md` itself)
+2. After the existing introductory text, add a section titled `## All Types`
+3. List each type as a bullet point with the format:
+   - `- [Type Name](/types/path_to_file)`
+   - Use the actual filename (without extension) as the display name, replacing underscores with spaces and capitalizing appropriately
+   - Sort alphabetically
+
+## Example Output
+
+For terms/index.md:
+```markdown
+# Terms
+
+[Terms](/terms/) enter [Cedar's](/) theory when they inhabit a [type](/types/).
+
+## All Terms
+
+- [Bits](/terms/bits/)
+- [Blessed Hills](/terms/blessed_hills)
+- [Dark Matter](/terms/dark_matter)
+```
+
+For types/index.md:
+```markdown
+# Types
+
+[Types](/types/) prescribe [terms](/terms/). [Types](/types/) bring [terms](/terms/) to [Cedar](/).
+
+## All Types
+
+- [Do a Bit](/types/do_a_bit)
+- [Flinch](/types/flinch)
+```
+
+## Notes
+- Preserve the existing introductory text at the top of each index file
+- Only add/update the "All Terms" or "All Types" section
+- Handle both directories and individual files
+- For directories, link to the directory path (e.g., `/terms/bits/`)
+- For files, link to the file without extension if it's .md, or with extension for other types (e.g., `/terms/zhuge.txt`)
