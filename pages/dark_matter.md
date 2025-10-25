@@ -9,4 +9,4 @@ That doesn't feel very matter-ey!
 
 Dark matter should really be called space puddles.
 
-[Galaxies form around space puddles](../types/galaxies_are_space_puddles.md).
+[Galaxies form around space puddles](/pages/galaxies_are_space_puddles.md).

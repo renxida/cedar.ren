@@ -6,7 +6,7 @@ Once is genius. Twice is subversion. Three times is the beginning of a new genre
 
 ---
 
-I still [flinch](../types/flinch.md) when I realize that an idea has come to other people before.
+I still [flinch](/pages/flinch.md) when I realize that an idea has come to other people before.
 
 But if you're unique in every possible way, you are just noise.
 
