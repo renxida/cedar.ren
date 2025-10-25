@@ -13,6 +13,6 @@
 - [Inspiration](/pages/inspiration)
 - [Korvain](/pages/korvain)
 - [Kpot](/pages/kpot)
-- [Pixel Debug](/pages/pixel_debug)
+- [Try Wirelessly Charging your Google Pixel before sending it in for repairs](/pages/try_wireless_charging_pixel)
 - [Where Is Cedar](/pages/where_is_cedar)
 - [Zhuge](/pages/zhuge.txt)
