@@ -21,16 +21,9 @@ export default {
       return new Response(null, { headers: corsHeaders });
     }
 
-    // Get parameters from request
-    const agency = url.searchParams.get('agency');
-    const stopCode = url.searchParams.get('stopCode');
-
-    if (!agency) {
-      return new Response(JSON.stringify({ error: 'agency required' }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-      });
-    }
+    // Get parameters from request (default to Caltrain MTV)
+    const agency = url.searchParams.get('agency') || 'CT';
+    const stopCode = url.searchParams.get('stopCode') || '70212';
 
     // Build 511 API URL with secret key
     const apiUrl = new URL('https://api.511.org/transit/StopMonitoring');
