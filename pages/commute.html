@@ -613,7 +613,7 @@
             try {
                 // Fetch both in parallel
                 const [vtaData, caltrainData] = await Promise.all([
-                    fetchArrivals('VT', CONFIG.vtaStopId).catch(e => ({ error: e.message })),
+                    fetchArrivals('SC', CONFIG.vtaStopId).catch(e => ({ error: e.message })),
                     fetchArrivals('CT', CONFIG.caltrainMtvStopId).catch(e => ({ error: e.message }))
                 ]);
 
