@@ -386,9 +386,14 @@
             <summary>⚙️ Configuration</summary>
             <div class="config-content">
                 <div>
-                    <label>API Token (from 511.org)</label>
-                    <input type="password" id="apiToken" placeholder="Enter your 511.org API token">
+                    <label>Proxy URL (recommended - keeps API key secret)</label>
+                    <input type="text" id="proxyUrl" placeholder="https://your-worker.workers.dev">
                 </div>
+                <div>
+                    <label>OR API Token directly (exposes key in browser)</label>
+                    <input type="password" id="apiToken" placeholder="Only if not using proxy">
+                </div>
+                <hr style="border-color: #333; margin: 10px 0;">
                 <div>
                     <label>VTA Stop ID (near 490 E Middlefield) - 64818 = Middlefield LRT</label>
                     <input type="text" id="vtaStopId" value="64818" placeholder="e.g., 64818">
@@ -456,7 +461,9 @@
         //   - Route 40 stops on Middlefield go to MTV Transit Center
         // Caltrain: 70212 = MTV Northbound, 70021 = 22nd St Northbound
         const CONFIG = {
-            apiToken: 'c4654b5b-128b-484f-a1a3-16ab28662f54',
+            // Use proxy to hide API key (deploy workers/transit-proxy.js to Cloudflare)
+            proxyUrl: '',  // e.g., 'https://transit-proxy.your-worker.workers.dev'
+            apiToken: '',  // Fallback: direct API key (exposes key in browser)
             vtaStopId: '64818',         // Middlefield Light Rail Station (toward MTV)
             caltrainMtvStopId: '70212', // Mountain View Caltrain (Northbound to SF)
             caltrain22ndStopId: '70021' // 22nd St (for reference)
@@ -469,33 +476,36 @@
                 Object.assign(CONFIG, JSON.parse(saved));
             }
 
-            // Also check for token separately
-            const token = localStorage.getItem('transit_api_token');
-            if (token) CONFIG.apiToken = token;
-
             // Populate form
+            document.getElementById('proxyUrl').value = CONFIG.proxyUrl;
             document.getElementById('apiToken').value = CONFIG.apiToken;
             document.getElementById('vtaStopId').value = CONFIG.vtaStopId;
             document.getElementById('caltrainMtvStopId').value = CONFIG.caltrainMtvStopId;
         }
 
         function saveConfigAndRefresh() {
+            CONFIG.proxyUrl = document.getElementById('proxyUrl').value.trim();
             CONFIG.apiToken = document.getElementById('apiToken').value.trim();
             CONFIG.vtaStopId = document.getElementById('vtaStopId').value.trim();
             CONFIG.caltrainMtvStopId = document.getElementById('caltrainMtvStopId').value.trim();
 
             localStorage.setItem('commuteConfig', JSON.stringify(CONFIG));
-            localStorage.setItem('transit_api_token', CONFIG.apiToken);
 
             refreshAll();
         }
 
         async function fetchArrivals(agency, stopCode) {
-            if (!CONFIG.apiToken) {
-                throw new Error('API token required');
-            }
+            let url;
 
-            const url = `https://api.511.org/transit/StopMonitoring?api_key=${CONFIG.apiToken}&agency=${agency}&stopCode=${stopCode}&format=json`;
+            if (CONFIG.proxyUrl) {
+                // Use secure proxy (recommended)
+                url = `${CONFIG.proxyUrl}?agency=${agency}&stopCode=${stopCode}`;
+            } else if (CONFIG.apiToken) {
+                // Direct API call (exposes key in browser network tab)
+                url = `https://api.511.org/transit/StopMonitoring?api_key=${CONFIG.apiToken}&agency=${agency}&stopCode=${stopCode}&format=json`;
+            } else {
+                throw new Error('Configure proxy URL or API token');
+            }
 
             const response = await fetch(url);
             if (!response.ok) {
@@ -590,9 +600,9 @@
         }
 
         async function refreshAll() {
-            if (!CONFIG.apiToken) {
-                document.getElementById('vtaArrivals').innerHTML = '<div class="no-data">Enter API token in Configuration</div>';
-                document.getElementById('caltrainArrivals').innerHTML = '<div class="no-data">Enter API token in Configuration</div>';
+            if (!CONFIG.proxyUrl && !CONFIG.apiToken) {
+                document.getElementById('vtaArrivals').innerHTML = '<div class="no-data">Configure proxy URL or API token</div>';
+                document.getElementById('caltrainArrivals').innerHTML = '<div class="no-data">Configure proxy URL or API token</div>';
                 return;
             }
 
@@ -633,7 +643,7 @@
         window.onload = function() {
             loadConfig();
 
-            if (CONFIG.apiToken) {
+            if (CONFIG.proxyUrl || CONFIG.apiToken) {
                 refreshAll();
             }
 
