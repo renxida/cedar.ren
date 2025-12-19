@@ -5,9 +5,13 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // CORS headers
+    // CORS headers - allow cedar.ren and local development
+    const origin = request.headers.get('Origin') || '*';
+    const allowedOrigins = ['https://cedar.ren', 'http://localhost', 'http://127.0.0.1', 'null'];
+    const allowOrigin = allowedOrigins.some(o => origin.startsWith(o)) ? origin : 'https://cedar.ren';
+
     const corsHeaders = {
-      'Access-Control-Allow-Origin': 'https://cedar.ren',
+      'Access-Control-Allow-Origin': allowOrigin,
       'Access-Control-Allow-Methods': 'GET, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     };
