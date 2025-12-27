@@ -16,6 +16,8 @@ Nothing worked.
 
 I suspect this happens when the phone runs out of power while the charging port debris detection is active (possibly from moisture). This locks it into an unchargeable state that only wireless charging can break.
 
+**Updeate: as of Dec 27 2025, my phone is still chugging along!**
+
 ## References
 
 - [Reddit: Pixel 7 died suddenly](https://www.reddit.com/r/pixel7series/comments/1glcucn/pixel_7_died_suddenly/) - exactly same problem
