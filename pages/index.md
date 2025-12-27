@@ -6,6 +6,7 @@
 
 - [Bits](/pages/bits/)
 - [Blessed Hills](/pages/blessed_hills)
+- [Broker Fees](/pages/broker_fees)
 - [Dark Matter](/pages/dark_matter)
 - [Do a Bit](/pages/do_a_bit)
 - [Flinch](/pages/flinch)
