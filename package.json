@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "devDependencies": {
+    "@marp-team/marp-cli": "^4"
+  },
+  "scripts": {
+    "build:slides": "marp -I slides -o slides --html"
+  }
+}
