@@ -7,6 +7,7 @@
 - [Bits](/pages/bits/)
 - [Blessed Hills](/pages/blessed_hills)
 - [Broker Fees](/pages/broker_fees)
+- [Cradio + Android Cheatsheet](/pages/cradio_android.html)
 - [Dark Matter](/pages/dark_matter)
 - [Do a Bit](/pages/do_a_bit)
 - [Flinch](/pages/flinch)
