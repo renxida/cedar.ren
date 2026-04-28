@@ -1,0 +1,186 @@
+# Cradio cheatsheet — single source of truth.
+# Every entry that targets a physical key declares:
+#   - layer: which ZMK layer the binding lives on (default Base)
+#   - binding: the ZMK binding name (e.g. &sys_reset, &kp ESC, _BT_SEL_KEYS_)
+# validate.py checks (layer, position) -> binding against base.keymap.
+#
+# Position spec format inside `keys`:
+#   - {kbd: "Cmd"}                 inline keycap label
+#   - {tag: "Settings"}            inline tag (dashed border)
+#   - {plus: true}                 the "+" separator
+#   - {sep: "/"}                   custom separator
+#   - {diagram: {...}}             block-size keyboard diagram
+#   - {inline_diagram: {...}}      inline-size diagram (mid-sentence)
+#
+# diagram fields (any subset):
+#   left:   list of Colemak-DH letters on left half  (Q W F P B / A R S T G / Z X C D V)
+#   right:  list of Colemak-DH letters on right half (J L U Y ' / M N E I O / K H , . ?)
+#   thumbs: list of LO LI RI RO
+
+title: "Cradio → Galaxy"
+subtitle: "A pocket reference for typing into a phone with a thirty-four-key keyboard."
+meta: ["Colemak-DH", "34 keys", "BLE 5.0", "nice!nano v2"]
+specimen_caption: |
+  Home keys marked at <span class="key">T</span> and <span class="key">N</span>.
+  All diagrams below show both halves; the inked keys are the ones to press.
+
+sections:
+  - id: pair
+    name: Pair
+    rows:
+      - action: "Activate <em>Sys</em> layer"
+        sub: "Hold both inner thumbs"
+        layer: Base
+        binding_thumbs: { LI: "&mo SYS_via_thumbs", RI: "&mo SYS_via_thumbs" }  # conditional layer; validator skips
+        keys:
+          - diagram: { thumbs: [LI, RI] }
+
+      - action: "Select Bluetooth slot 0–3"
+        sub: "One press selects, then pair"
+        layer: Sys
+        binding: "&bt BT_SEL"   # _BT_SEL_KEYS_ macro expands to BT_SEL 0..3
+        keys:
+          - diagram: { left: [Q, W, F, P] }
+
+      - action: "Clear current slot"
+        sub: "Erases pairing on active slot"
+        layer: Sys
+        binding: "&bt BT_CLR"
+        keys:
+          - diagram: { left: [B] }
+
+      - action: "Soft reset"
+        sub: "Reboot half (Sys layer)"
+        layer: Sys
+        binding: "&sys_reset"
+        keys:
+          - diagram: { left: [V], right: [K] }
+
+      - action: "Bootloader"
+        sub: "Flash mode (Sys layer)"
+        layer: Sys
+        binding: "&bootloader"
+        keys:
+          - diagram: { left: [G], right: [M] }
+    note: |
+      On the phone: open Bluetooth, pair the device named <code>SS-&lt;hash&gt;</code>,
+      then mark it as an Input device.
+
+  - id: phone
+    name: Phone Setup
+    rows:
+      - action: "Hide the on-screen keyboard"
+        keys: [{ tag: "Settings" }]
+      - action: "Set layout to English (US)"
+        keys: [{ tag: "Settings" }]
+      - action: "Turn on keyboard cursor"
+        keys: [{ tag: "Accessibility" }]
+
+  - id: nav
+    name: Navigation
+    rows:
+      - action: "Home"
+        keys: [{ kbd: "Cmd" }, { plus: true }, { kbd: "Enter" }]
+      - action: "Back"
+        sub: "chord: Esc"
+        keys:
+          - diagram: { left: [Q, W] }
+      - action: "Recents"
+        sub: "Cmd + (chord: Tab)"
+        keys:
+          - kbd: "Cmd"
+          - plus: true
+          - inline_diagram: { left: [S, F] }
+      - action: "App switch"
+        sub: "Alt + (chord: Tab)"
+        keys:
+          - kbd: "Alt"
+          - plus: true
+          - inline_diagram: { left: [S, F] }
+      - action: "Notifications"
+        keys: [{ kbd: "Cmd" }, { plus: true }, { kbd: "N" }]
+      - action: "Search / launch app"
+        keys: [{ kbd: "Cmd" }, { plus: true }, { kbd: "F" }]
+
+  - id: window
+    name: Window
+    rows:
+      - action: "Snap left / right"
+        keys: [{ kbd: "Cmd" }, { plus: true }, { kbd: "←" }, { sep: "/" }, { kbd: "→" }]
+      - action: "Maximise / minimise"
+        keys: [{ kbd: "Cmd" }, { plus: true }, { kbd: "↑" }, { sep: "/" }, { kbd: "↓" }]
+
+  - id: shot
+    name: Screenshot
+    rows:
+      - action: "Selection screenshot"
+        keys: [{ kbd: "Cmd" }, { plus: true }, { kbd: "Shift" }, { plus: true }, { kbd: "S" }]
+
+  - id: mouse
+    name: Mouse Layer
+    rows:
+      - action: "Toggle mouse"
+        sub: "chord"
+        keys:
+          - diagram: { left: [F, W] }
+
+      - action: "Cursor up / left / down / right"
+        layer: Mouse
+        binding: "U_MS_*"   # U_MS_U / L / D / R
+        keys:
+          - diagram: { right: [U, N, E, I] }
+
+      - action: "Left click"
+        sub: "left outer thumb"
+        layer: Mouse
+        binding: "&mkp LCLK"
+        keys:
+          - diagram: { thumbs: [LO] }
+
+      - action: "Right click"
+        sub: "left inner thumb"
+        layer: Mouse
+        binding: "&mkp RCLK"
+        keys:
+          - diagram: { thumbs: [LI] }
+
+      - action: "Middle click"
+        layer: Mouse
+        binding: "&mkp MCLK"
+        keys:
+          - diagram: { right: [","] }
+
+      - action: "Wheel ←/→"
+        layer: Mouse
+        binding: "U_WH_*"
+        keys:
+          - diagram: { right: [J, "'"] }
+
+      - action: "Wheel ↑/↓"
+        layer: Mouse
+        binding: "U_WH_*"
+        keys:
+          - diagram: { right: [H, "."] }
+
+      - action: "Page up / down"
+        layer: Mouse
+        binding: "&kp PG_*"
+        keys:
+          - diagram: { right: [L, Y] }
+
+      - action: "Exit mouse layer"
+        sub: "right outer thumb"
+        layer: Mouse
+        binding: "&tog MOUSE"
+        keys:
+          - diagram: { thumbs: [RO] }
+
+  - id: edit
+    name: Text Edit
+    rows:
+      - action: "Cut · Copy · Paste"
+        keys: [{ kbd: "Ctrl" }, { plus: true }, { kbd: "X/C/V" }]
+      - action: "Select all · Undo"
+        keys: [{ kbd: "Ctrl" }, { plus: true }, { kbd: "A/Z" }]
+      - action: "Word delete back / forward"
+        keys: [{ tag: "long-tap NAV" }]

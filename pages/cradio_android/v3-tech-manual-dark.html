@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cradio + Android — Field Manual (Dark)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #14110d;
+    --paper-2: #1c1813;
+    --ink: #ece4d3;
+    --ink-2: #b6a98f;
+    --muted: #7a6e5a;
+    --rule: #3a3127;
+    --accent: #e07a4a;
+    --accent-soft: rgba(224, 122, 74, 0.14);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 400 15px/1.5 "Newsreader", Georgia, serif;
+    font-optical-sizing: auto;
+    overflow-x: hidden;
+  }
+  body {
+    background-image:
+      radial-gradient(circle at 20% 10%, var(--accent-soft) 0, transparent 40%),
+      radial-gradient(circle at 80% 95%, color-mix(in srgb, var(--ink) 6%, transparent) 0, transparent 45%);
+    background-attachment: fixed;
+  }
+  main {
+    padding: 28px 18px 60px;
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    overflow-wrap: break-word;
+  }
+  .note { overflow-wrap: anywhere; }
+  .subtitle { overflow-wrap: break-word; }
+
+  /* Masthead */
+  .masthead {
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+    position: relative;
+  }
+  .masthead::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0; right: 0;
+    height: 1px;
+    background: var(--ink);
+  }
+  .eyebrow {
+    font: 500 0.68rem/1 "JetBrains Mono", monospace;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  h1 {
+    font: 300 2.4rem/0.95 "Fraunces", serif;
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+    margin: 0 0 6px;
+    letter-spacing: -0.02em;
+  }
+  h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+  .subtitle {
+    font: italic 400 0.95rem/1.3 "Newsreader", serif;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .meta {
+    font: 500 0.65rem/1 "JetBrains Mono", monospace;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 12px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .meta span::before { content: "· "; color: var(--rule); }
+  .meta span:first-child::before { content: ""; }
+
+  /* Specimen card */
+  .specimen {
+    margin: 0 0 28px;
+    padding: 18px 14px 14px;
+    border: 0.5px solid var(--ink);
+    background:
+      linear-gradient(var(--paper-2), var(--paper-2)) padding-box,
+      repeating-linear-gradient(45deg, var(--ink) 0 1px, transparent 1px 6px) border-box;
+    position: relative;
+  }
+  .specimen-label {
+    position: absolute;
+    top: -8px; left: 14px;
+    background: var(--paper);
+    padding: 0 8px;
+    font: 700 0.6rem/1 "JetBrains Mono", monospace;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .specimen-svg-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 6px 0;
+  }
+  .specimen-caption {
+    margin-top: 10px;
+    font: italic 400 0.78rem/1.4 "Newsreader", serif;
+    color: var(--ink-2);
+    text-align: center;
+  }
+  .specimen-caption .key {
+    font-style: normal;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.75em;
+    letter-spacing: 0.05em;
+    background: var(--accent-soft);
+    padding: 1px 5px;
+    border-radius: 1px;
+    color: var(--accent);
+  }
+
+  /* Sections */
+  section { margin: 26px 0; }
+  h2 {
+    font: 700 0.72rem/1 "JetBrains Mono", monospace;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 0 0 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    border-bottom: 0.5px solid var(--ink);
+    padding-bottom: 6px;
+  }
+  h2 .sec-num { color: var(--accent); font-weight: 700; }
+  h2 .sec-rule { flex: 1; height: 1px; background: var(--rule); margin-bottom: 3px; }
+
+  /* Rows */
+  ul.rows { list-style: none; padding: 0; margin: 0; }
+  ul.rows li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 11px 0;
+    border-bottom: 0.5px dotted var(--rule);
+  }
+  ul.rows li:last-child { border-bottom: none; }
+  @media (min-width: 520px) {
+    ul.rows li {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+  }
+  .action {
+    font: italic 400 1rem/1.25 "Newsreader", serif;
+    color: var(--ink);
+  }
+  .action small {
+    display: block;
+    font: 500 0.65rem/1.3 "JetBrains Mono", monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 2px;
+    font-style: normal;
+  }
+  .keys {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  @media (min-width: 520px) {
+    .keys { justify-content: flex-end; }
+  }
+  .keys svg.kbmap { max-width: 100%; height: auto; }
+  .keys svg.kbmap.inline { vertical-align: middle; height: 1.6em; width: auto; }
+
+  /* Inline keycap */
+  kbd {
+    font: 500 0.74rem/1 "JetBrains Mono", monospace;
+    letter-spacing: 0.05em;
+    background: var(--paper-2);
+    border: 0.5px solid var(--ink);
+    border-bottom-width: 1.5px;
+    border-radius: 2px;
+    padding: 3px 6px;
+    color: var(--ink);
+    text-transform: uppercase;
+  }
+  kbd.tag {
+    background: transparent;
+    border: 0.5px dashed var(--muted);
+    color: var(--muted);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0.04em;
+    font-size: 0.7rem;
+  }
+  .plus, .sep {
+    font: 400 0.75rem/1 "JetBrains Mono", monospace;
+    color: var(--muted);
+    margin: 0 1px;
+  }
+
+  /* Note callout */
+  .note {
+    margin: 14px 0 0;
+    padding: 10px 12px 10px 16px;
+    background: var(--accent-soft);
+    border-left: 2px solid var(--accent);
+    font: italic 400 0.85rem/1.4 "Newsreader", serif;
+    color: var(--ink);
+  }
+  .note code {
+    font-family: "JetBrains Mono", monospace;
+    font-style: normal;
+    font-size: 0.78em;
+    background: var(--paper);
+    padding: 1px 4px;
+    border-radius: 1px;
+  }
+
+  /* SVG keymap */
+  svg.kbmap { display: block; }
+  svg.kbmap rect.k { fill: none; stroke: var(--ink); stroke-width: 0.4; }
+  svg.kbmap circle.t { fill: none; stroke: var(--ink); stroke-width: 0.4; }
+  svg.kbmap rect.k.on, svg.kbmap circle.t.on { fill: var(--accent); stroke: var(--accent); }
+  svg.kbmap text.lbl {
+    fill: var(--ink-2);
+    font: 500 5.5px "JetBrains Mono", monospace;
+    text-anchor: middle;
+    dominant-baseline: central;
+    letter-spacing: 0.05em;
+  }
+  svg.kbmap text.lbl.on { fill: var(--paper); font-weight: 700; }
+  svg.kbmap polygon.home { fill: var(--accent); }
+  svg.kbmap line.divide { stroke: var(--rule); stroke-width: 0.4; stroke-dasharray: 1 1.5; }
+  svg.kbmap text.handlbl {
+    fill: var(--muted);
+    font: 700 5px "JetBrains Mono", monospace;
+    text-anchor: middle;
+    letter-spacing: 0.2em;
+  }
+
+  /* Page-load reveal */
+  @keyframes rise {
+    from { opacity: 0.4; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .masthead, .specimen, section {
+      animation: rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+    .specimen { animation-delay: 0.06s; }
+    section:nth-of-type(1) { animation-delay: 0.12s; }
+    section:nth-of-type(2) { animation-delay: 0.16s; }
+    section:nth-of-type(3) { animation-delay: 0.20s; }
+    section:nth-of-type(4) { animation-delay: 0.24s; }
+    section:nth-of-type(5) { animation-delay: 0.28s; }
+    section:nth-of-type(6) { animation-delay: 0.32s; }
+    section:nth-of-type(7) { animation-delay: 0.36s; }
+  }
+
+  /* Footer */
+  .colophon {
+    margin-top: 40px;
+    padding-top: 14px;
+    border-top: 0.5px solid var(--rule);
+    font: 500 0.62rem/1.3 "JetBrains Mono", monospace;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+  }
+  .colophon .glyph { color: var(--accent); margin: 0 6px; }</style>
+</head>
+<body>
+<main>
+  <header class="masthead">
+    <div class="eyebrow"><span>Field Manual № 01</span><span>Rev. 2026</span></div>
+    <h1>Cradio → Galaxy</h1>
+    <p class="subtitle">A pocket reference for typing into a phone with a thirty-four-key keyboard.</p>
+    <div class="meta">
+<span>Colemak-DH</span><span>34 keys</span><span>BLE 5.0</span><span>nice!nano v2</span>    </div>
+  </header>
+
+  <figure class="specimen">
+    <div class="specimen-label">Layout · Plate</div>
+    <div class="specimen-svg-wrap"><svg class="kbmap" viewBox="0 0 150 42" style="width:100%;max-width:320px;height:auto"><rect x="0" y="0" width="13" height="13" rx="1.2" class="k"/><text x="6.5" y="6.8" class="lbl">Q</text><rect x="14.5" y="0" width="13" height="13" rx="1.2" class="k"/><text x="21" y="6.8" class="lbl">W</text><rect x="29" y="0" width="13" height="13" rx="1.2" class="k"/><text x="35.5" y="6.8" class="lbl">F</text><rect x="43.5" y="0" width="13" height="13" rx="1.2" class="k"/><text x="50" y="6.8" class="lbl">P</text><rect x="58" y="0" width="13" height="13" rx="1.2" class="k"/><text x="64.5" y="6.8" class="lbl">B</text><rect x="0" y="14.5" width="13" height="13" rx="1.2" class="k"/><text x="6.5" y="21.3" class="lbl">A</text><rect x="14.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><text x="21" y="21.3" class="lbl">R</text><rect x="29" y="14.5" width="13" height="13" rx="1.2" class="k"/><text x="35.5" y="21.3" class="lbl">S</text><rect x="43.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><text x="50" y="21.3" class="lbl">T</text><polygon points="50,29 48.5,30.8 51.5,30.8" class="home"/><rect x="58" y="14.5" width="13" height="13" rx="1.2" class="k"/><text x="64.5" y="21.3" class="lbl">G</text><rect x="0" y="29" width="13" height="13" rx="1.2" class="k"/><text x="6.5" y="35.8" class="lbl">Z</text><rect x="14.5" y="29" width="13" height="13" rx="1.2" class="k"/><text x="21" y="35.8" class="lbl">X</text><rect x="29" y="29" width="13" height="13" rx="1.2" class="k"/><text x="35.5" y="35.8" class="lbl">C</text><rect x="43.5" y="29" width="13" height="13" rx="1.2" class="k"/><text x="50" y="35.8" class="lbl">D</text><rect x="58" y="29" width="13" height="13" rx="1.2" class="k"/><text x="64.5" y="35.8" class="lbl">V</text><rect x="79" y="0" width="13" height="13" rx="1.2" class="k"/><text x="85.5" y="6.8" class="lbl">J</text><rect x="93.5" y="0" width="13" height="13" rx="1.2" class="k"/><text x="100" y="6.8" class="lbl">L</text><rect x="108" y="0" width="13" height="13" rx="1.2" class="k"/><text x="114.5" y="6.8" class="lbl">U</text><rect x="122.5" y="0" width="13" height="13" rx="1.2" class="k"/><text x="129" y="6.8" class="lbl">Y</text><rect x="137" y="0" width="13" height="13" rx="1.2" class="k"/><text x="143.5" y="6.8" class="lbl">'</text><rect x="79" y="14.5" width="13" height="13" rx="1.2" class="k"/><text x="85.5" y="21.3" class="lbl">M</text><rect x="93.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><text x="100" y="21.3" class="lbl">N</text><polygon points="100,29 98.5,30.8 101.5,30.8" class="home"/><rect x="108" y="14.5" width="13" height="13" rx="1.2" class="k"/><text x="114.5" y="21.3" class="lbl">E</text><rect x="122.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><text x="129" y="21.3" class="lbl">I</text><rect x="137" y="14.5" width="13" height="13" rx="1.2" class="k"/><text x="143.5" y="21.3" class="lbl">O</text><rect x="79" y="29" width="13" height="13" rx="1.2" class="k"/><text x="85.5" y="35.8" class="lbl">K</text><rect x="93.5" y="29" width="13" height="13" rx="1.2" class="k"/><text x="100" y="35.8" class="lbl">H</text><rect x="108" y="29" width="13" height="13" rx="1.2" class="k"/><text x="114.5" y="35.8" class="lbl">,</text><rect x="122.5" y="29" width="13" height="13" rx="1.2" class="k"/><text x="129" y="35.8" class="lbl">.</text><rect x="137" y="29" width="13" height="13" rx="1.2" class="k"/><text x="143.5" y="35.8" class="lbl">?</text><line x1="75" y1="0" x2="75" y2="42" class="divide"/></svg></div>
+    <figcaption class="specimen-caption">Home keys marked at <span class="key">T</span> and <span class="key">N</span>.
+All diagrams below show both halves; the inked keys are the ones to press.
+</figcaption>
+  </figure>
+
+  <section>
+    <h2><span class="sec-num">§01</span> Pair <span class="sec-rule"></span></h2>
+    <ul class="rows">
+      <li>
+        <span class="action">
+          Activate <em>Sys</em> layer
+<small>Hold both inner thumbs</small>        </span>
+        <span class="keys"><svg class="kbmap" width="72" height="25" viewBox="0 0 72 25"><circle cx="7.5" cy="7.5" r="5.5" class="t"/><circle cx="23.5" cy="7.5" r="5.5" class="t on"/><circle cx="48.5" cy="7.5" r="5.5" class="t on"/><circle cx="64.5" cy="7.5" r="5.5" class="t"/><line x1="36" y1="0" x2="36" y2="15" class="divide"/><text x="15.5" y="22" class="handlbl">L</text><text x="56.5" y="22" class="handlbl">R</text></svg></span>
+      </li>
+      <li>
+        <span class="action">
+          Select Bluetooth slot 0–3
+<small>One press selects, then pair</small>        </span>
+        <span class="keys"><svg class="kbmap" viewBox="0 0 150 42" width="150" height="42"><rect x="0" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="14.5" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="29" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="43.5" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="58" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="29" width="13" height="13" rx="1.2" class="k"/><line x1="75" y1="0" x2="75" y2="42" class="divide"/></svg></span>
+      </li>
+      <li>
+        <span class="action">
+          Clear current slot
+<small>Erases pairing on active slot</small>        </span>
+        <span class="keys"><svg class="kbmap" viewBox="0 0 150 42" width="150" height="42"><rect x="0" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="0" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="29" width="13" height="13" rx="1.2" class="k"/><line x1="75" y1="0" x2="75" y2="42" class="divide"/></svg></span>
+      </li>
+      <li>
+        <span class="action">
+          Soft reset
+<small>Reboot half (Sys layer)</small>        </span>
+        <span class="keys"><svg class="kbmap" viewBox="0 0 150 42" width="150" height="42"><rect x="0" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="29" width="13" height="13" rx="1.2" class="k on"/><rect x="79" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="29" width="13" height="13" rx="1.2" class="k on"/><rect x="93.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="29" width="13" height="13" rx="1.2" class="k"/><line x1="75" y1="0" x2="75" y2="42" class="divide"/></svg></span>
+      </li>
+      <li>
+        <span class="action">
+          Bootloader
+<small>Flash mode (Sys layer)</small>        </span>
+        <span class="keys"><svg class="kbmap" viewBox="0 0 150 42" width="150" height="42"><rect x="0" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="14.5" width="13" height="13" rx="1.2" class="k on"/><rect x="0" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="14.5" width="13" height="13" rx="1.2" class="k on"/><rect x="93.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="29" width="13" height="13" rx="1.2" class="k"/><line x1="75" y1="0" x2="75" y2="42" class="divide"/></svg></span>
+      </li>
+    </ul>
+<p class="note">On the phone: open Bluetooth, pair the device named <code>SS-&lt;hash&gt;</code>,
+then mark it as an Input device.
+</p>  </section>
+  <section>
+    <h2><span class="sec-num">§02</span> Phone Setup <span class="sec-rule"></span></h2>
+    <ul class="rows">
+      <li>
+        <span class="action">
+          Hide the on-screen keyboard
+        </span>
+        <span class="keys"><kbd class="tag">Settings</kbd></span>
+      </li>
+      <li>
+        <span class="action">
+          Set layout to English (US)
+        </span>
+        <span class="keys"><kbd class="tag">Settings</kbd></span>
+      </li>
+      <li>
+        <span class="action">
+          Turn on keyboard cursor
+        </span>
+        <span class="keys"><kbd class="tag">Accessibility</kbd></span>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2><span class="sec-num">§03</span> Navigation <span class="sec-rule"></span></h2>
+    <ul class="rows">
+      <li>
+        <span class="action">
+          Home
+        </span>
+        <span class="keys"><kbd>Cmd</kbd> <span class="plus">+</span> <kbd>Enter</kbd></span>
+      </li>
+      <li>
+        <span class="action">
+          Back
+<small>chord: Esc</small>        </span>
+        <span class="keys"><svg class="kbmap" viewBox="0 0 150 42" width="150" height="42"><rect x="0" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="14.5" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="29" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="29" width="13" height="13" rx="1.2" class="k"/><line x1="75" y1="0" x2="75" y2="42" class="divide"/></svg></span>
+      </li>
+      <li>
+        <span class="action">
+          Recents
+<small>Cmd + (chord: Tab)</small>        </span>
+        <span class="keys"><kbd>Cmd</kbd> <span class="plus">+</span> <svg class="kbmap inline" viewBox="0 0 150 42" width="150" height="42"><rect x="0" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="43.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="14.5" width="13" height="13" rx="1.2" class="k on"/><rect x="43.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="29" width="13" height="13" rx="1.2" class="k"/><line x1="75" y1="0" x2="75" y2="42" class="divide"/></svg></span>
+      </li>
+      <li>
+        <span class="action">
+          App switch
+<small>Alt + (chord: Tab)</small>        </span>
+        <span class="keys"><kbd>Alt</kbd> <span class="plus">+</span> <svg class="kbmap inline" viewBox="0 0 150 42" width="150" height="42"><rect x="0" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="43.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="14.5" width="13" height="13" rx="1.2" class="k on"/><rect x="43.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="29" width="13" height="13" rx="1.2" class="k"/><line x1="75" y1="0" x2="75" y2="42" class="divide"/></svg></span>
+      </li>
+      <li>
+        <span class="action">
+          Notifications
+        </span>
+        <span class="keys"><kbd>Cmd</kbd> <span class="plus">+</span> <kbd>N</kbd></span>
+      </li>
+      <li>
+        <span class="action">
+          Search / launch app
+        </span>
+        <span class="keys"><kbd>Cmd</kbd> <span class="plus">+</span> <kbd>F</kbd></span>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2><span class="sec-num">§04</span> Window <span class="sec-rule"></span></h2>
+    <ul class="rows">
+      <li>
+        <span class="action">
+          Snap left / right
+        </span>
+        <span class="keys"><kbd>Cmd</kbd> <span class="plus">+</span> <kbd>←</kbd> <span class="sep">/</span> <kbd>→</kbd></span>
+      </li>
+      <li>
+        <span class="action">
+          Maximise / minimise
+        </span>
+        <span class="keys"><kbd>Cmd</kbd> <span class="plus">+</span> <kbd>↑</kbd> <span class="sep">/</span> <kbd>↓</kbd></span>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2><span class="sec-num">§05</span> Screenshot <span class="sec-rule"></span></h2>
+    <ul class="rows">
+      <li>
+        <span class="action">
+          Selection screenshot
+        </span>
+        <span class="keys"><kbd>Cmd</kbd> <span class="plus">+</span> <kbd>Shift</kbd> <span class="plus">+</span> <kbd>S</kbd></span>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2><span class="sec-num">§06</span> Mouse Layer <span class="sec-rule"></span></h2>
+    <ul class="rows">
+      <li>
+        <span class="action">
+          Toggle mouse
+<small>chord</small>        </span>
+        <span class="keys"><svg class="kbmap" viewBox="0 0 150 42" width="150" height="42"><rect x="0" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="29" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="43.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="29" width="13" height="13" rx="1.2" class="k"/><line x1="75" y1="0" x2="75" y2="42" class="divide"/></svg></span>
+      </li>
+      <li>
+        <span class="action">
+          Cursor up / left / down / right
+        </span>
+        <span class="keys"><svg class="kbmap" viewBox="0 0 150 42" width="150" height="42"><rect x="0" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="122.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="14.5" width="13" height="13" rx="1.2" class="k on"/><rect x="108" y="14.5" width="13" height="13" rx="1.2" class="k on"/><rect x="122.5" y="14.5" width="13" height="13" rx="1.2" class="k on"/><rect x="137" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="29" width="13" height="13" rx="1.2" class="k"/><line x1="75" y1="0" x2="75" y2="42" class="divide"/></svg></span>
+      </li>
+      <li>
+        <span class="action">
+          Left click
+<small>left outer thumb</small>        </span>
+        <span class="keys"><svg class="kbmap" width="72" height="25" viewBox="0 0 72 25"><circle cx="7.5" cy="7.5" r="5.5" class="t on"/><circle cx="23.5" cy="7.5" r="5.5" class="t"/><circle cx="48.5" cy="7.5" r="5.5" class="t"/><circle cx="64.5" cy="7.5" r="5.5" class="t"/><line x1="36" y1="0" x2="36" y2="15" class="divide"/><text x="15.5" y="22" class="handlbl">L</text><text x="56.5" y="22" class="handlbl">R</text></svg></span>
+      </li>
+      <li>
+        <span class="action">
+          Right click
+<small>left inner thumb</small>        </span>
+        <span class="keys"><svg class="kbmap" width="72" height="25" viewBox="0 0 72 25"><circle cx="7.5" cy="7.5" r="5.5" class="t"/><circle cx="23.5" cy="7.5" r="5.5" class="t on"/><circle cx="48.5" cy="7.5" r="5.5" class="t"/><circle cx="64.5" cy="7.5" r="5.5" class="t"/><line x1="36" y1="0" x2="36" y2="15" class="divide"/><text x="15.5" y="22" class="handlbl">L</text><text x="56.5" y="22" class="handlbl">R</text></svg></span>
+      </li>
+      <li>
+        <span class="action">
+          Middle click
+        </span>
+        <span class="keys"><svg class="kbmap" viewBox="0 0 150 42" width="150" height="42"><rect x="0" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="29" width="13" height="13" rx="1.2" class="k on"/><rect x="122.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="29" width="13" height="13" rx="1.2" class="k"/><line x1="75" y1="0" x2="75" y2="42" class="divide"/></svg></span>
+      </li>
+      <li>
+        <span class="action">
+          Wheel ←/→
+        </span>
+        <span class="keys"><svg class="kbmap" viewBox="0 0 150 42" width="150" height="42"><rect x="0" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="93.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="79" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="29" width="13" height="13" rx="1.2" class="k"/><line x1="75" y1="0" x2="75" y2="42" class="divide"/></svg></span>
+      </li>
+      <li>
+        <span class="action">
+          Wheel ↑/↓
+        </span>
+        <span class="keys"><svg class="kbmap" viewBox="0 0 150 42" width="150" height="42"><rect x="0" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="29" width="13" height="13" rx="1.2" class="k on"/><rect x="108" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="29" width="13" height="13" rx="1.2" class="k on"/><rect x="137" y="29" width="13" height="13" rx="1.2" class="k"/><line x1="75" y1="0" x2="75" y2="42" class="divide"/></svg></span>
+      </li>
+      <li>
+        <span class="action">
+          Page up / down
+        </span>
+        <span class="keys"><svg class="kbmap" viewBox="0 0 150 42" width="150" height="42"><rect x="0" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="0" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="14.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="29" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="43.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="58" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="108" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="0" width="13" height="13" rx="1.2" class="k on"/><rect x="137" y="0" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="14.5" width="13" height="13" rx="1.2" class="k"/><rect x="79" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="93.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="108" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="122.5" y="29" width="13" height="13" rx="1.2" class="k"/><rect x="137" y="29" width="13" height="13" rx="1.2" class="k"/><line x1="75" y1="0" x2="75" y2="42" class="divide"/></svg></span>
+      </li>
+      <li>
+        <span class="action">
+          Exit mouse layer
+<small>right outer thumb</small>        </span>
+        <span class="keys"><svg class="kbmap" width="72" height="25" viewBox="0 0 72 25"><circle cx="7.5" cy="7.5" r="5.5" class="t"/><circle cx="23.5" cy="7.5" r="5.5" class="t"/><circle cx="48.5" cy="7.5" r="5.5" class="t"/><circle cx="64.5" cy="7.5" r="5.5" class="t on"/><line x1="36" y1="0" x2="36" y2="15" class="divide"/><text x="15.5" y="22" class="handlbl">L</text><text x="56.5" y="22" class="handlbl">R</text></svg></span>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2><span class="sec-num">§07</span> Text Edit <span class="sec-rule"></span></h2>
+    <ul class="rows">
+      <li>
+        <span class="action">
+          Cut · Copy · Paste
+        </span>
+        <span class="keys"><kbd>Ctrl</kbd> <span class="plus">+</span> <kbd>X/C/V</kbd></span>
+      </li>
+      <li>
+        <span class="action">
+          Select all · Undo
+        </span>
+        <span class="keys"><kbd>Ctrl</kbd> <span class="plus">+</span> <kbd>A/Z</kbd></span>
+      </li>
+      <li>
+        <span class="action">
+          Word delete back / forward
+        </span>
+        <span class="keys"><kbd class="tag">long-tap NAV</kbd></span>
+      </li>
+    </ul>
+  </section>
+
+  <div class="colophon">
+    Set in Fraunces, Newsreader &amp; JetBrains Mono <span class="glyph">◆</span> cedar.ren
+  </div>
+</main></body>
+</html>

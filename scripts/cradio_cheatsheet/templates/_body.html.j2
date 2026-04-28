@@ -1,0 +1,38 @@
+<main>
+  <header class="masthead">
+    <div class="eyebrow"><span>Field Manual № 01</span><span>Rev. 2026</span></div>
+    <h1>{{ title|safe }}</h1>
+    <p class="subtitle">{{ subtitle }}</p>
+    <div class="meta">
+      {% for m in meta %}<span>{{ m }}</span>{% endfor %}
+    </div>
+  </header>
+
+  <figure class="specimen">
+    <div class="specimen-label">Layout · Plate</div>
+    <div class="specimen-svg-wrap">{{ render_intro_diagram()|safe }}</div>
+    <figcaption class="specimen-caption">{{ specimen_caption|safe }}</figcaption>
+  </figure>
+
+  {% for sec in sections %}
+  <section>
+    <h2><span class="sec-num">§{{ "%02d"|format(loop.index) }}</span> {{ sec.name }} <span class="sec-rule"></span></h2>
+    <ul class="rows">
+      {% for row in sec.rows %}
+      <li>
+        <span class="action">
+          {{ row.action|safe }}
+          {% if row.sub %}<small>{{ row.sub }}</small>{% endif %}
+        </span>
+        <span class="keys">{{ render_keys(row['keys'])|safe }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% if sec.note %}<p class="note">{{ sec.note|safe }}</p>{% endif %}
+  </section>
+  {% endfor %}
+
+  <div class="colophon">
+    Set in Fraunces, Newsreader &amp; JetBrains Mono <span class="glyph">◆</span> cedar.ren
+  </div>
+</main>
