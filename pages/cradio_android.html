@@ -10,8 +10,11 @@
     --fg: #e6e6e6;
     --dim: #9aa3ad;
     --accent: #7cc4ff;
+    --hi: #7cc4ff;
     --kbd-bg: #222831;
     --kbd-bd: #3a4350;
+    --key-off: #2a3340;
+    --key-lbl: #4a5360;
     --row: #161a21;
   }
   * { box-sizing: border-box; }
@@ -45,7 +48,7 @@
     font-size: 0.9rem;
   }
   .action { color: var(--fg); font-weight: 500; }
-  .keys { display: flex; gap: 4px; flex-wrap: wrap; }
+  .keys { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
   kbd {
     background: var(--kbd-bg);
     border: 1px solid var(--kbd-bd);
@@ -74,23 +77,41 @@
     margin-bottom: 12px;
   }
   .legend span { display: flex; align-items: center; gap: 4px; }
+  .intro {
+    margin: 0 0 16px;
+    padding: 10px;
+    background: var(--row);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+  }
+  .intro .lbls { display: flex; gap: 60px; font-size: 0.7rem; color: var(--dim); }
+  svg.kbmap { display: block; }
+  svg.kbmap rect.k { fill: var(--key-off); }
+  svg.kbmap circle.t { fill: var(--key-off); }
+  svg.kbmap rect.k.on, svg.kbmap circle.t.on { fill: var(--hi); }
+  .sec-pair svg.kbmap rect.k.on, .sec-pair svg.kbmap circle.t.on { fill: #ffb86b; }
+  .sec-mouse svg.kbmap rect.k.on, .sec-mouse svg.kbmap circle.t.on { fill: #b9e0c6; }
+  .sec-nav svg.kbmap rect.k.on, .sec-nav svg.kbmap circle.t.on { fill: #7cc4ff; }
+  svg.kbmap text.lbl { fill: var(--key-lbl); font: 600 7px ui-monospace, monospace; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+  svg.kbmap text.lbl.on { fill: #0f1115; }
+  svg.kbmap rect.home { fill: #6a7888; }
 </style>
 </head>
 <body>
 <main>
   <h1>Cradio &rarr; Samsung S23</h1>
   <p class="sub">Colemak-DH, 34 keys, BLE</p>
-  <div class="legend">
-    <span><kbd>plain</kbd> keycode</span>
-    <span><kbd class="combo">A+B</kbd> combo</span>
-    <span><kbd class="thumb">Thumb</kbd> hold</span>
-  </div>
+
+  <div class="intro" data-intro="1"></div>
 
   <h2>Pair</h2>
-  <ul>
-    <li><span class="action">Activate Sys layer</span><span class="keys"><kbd class="thumb">L-inner</kbd>+<kbd class="thumb">R-inner</kbd></span></li>
-    <li><span class="action">Select BT slot 0&ndash;3</span><span class="keys"><kbd>Q</kbd> <kbd>W</kbd> <kbd>F</kbd> <kbd>P</kbd></span></li>
-    <li><span class="action">Clear current slot</span><span class="keys"><kbd>B</kbd></span></li>
+  <ul class="sec-pair">
+    <li><span class="action">Activate Sys layer</span><span class="keys" data-keys="T:LI,RI"></span></li>
+    <li><span class="action">Select BT slot 0&ndash;3</span><span class="keys" data-keys="L:Q,W,F,P"></span></li>
+    <li><span class="action">Clear current slot</span><span class="keys" data-keys="L:B"></span></li>
   </ul>
   <p class="note">On phone: Bluetooth settings, pair <code>SS-&lt;hash&gt;</code>, set as Input device.</p>
 
@@ -102,11 +123,11 @@
   </ul>
 
   <h2>Navigation</h2>
-  <ul>
+  <ul class="sec-nav">
     <li><span class="action">Home</span><span class="keys"><kbd>Cmd</kbd>+<kbd>Enter</kbd></span></li>
-    <li><span class="action">Back</span><span class="keys"><kbd class="combo">Q+W</kbd> (Esc)</span></li>
-    <li><span class="action">Recents</span><span class="keys"><kbd>Cmd</kbd>+<kbd class="combo">S+F</kbd></span></li>
-    <li><span class="action">App switch</span><span class="keys"><kbd>Alt</kbd>+<kbd class="combo">S+F</kbd></span></li>
+    <li><span class="action">Back (Esc)</span><span class="keys" data-keys="L:Q,W"></span></li>
+    <li><span class="action">Recents</span><span class="keys"><kbd>Cmd</kbd>+<span data-keys="L:S,F" data-inline="1"></span></span></li>
+    <li><span class="action">App switch</span><span class="keys"><kbd>Alt</kbd>+<span data-keys="L:S,F" data-inline="1"></span></span></li>
     <li><span class="action">Notifications</span><span class="keys"><kbd>Cmd</kbd>+<kbd>N</kbd></span></li>
     <li><span class="action">Search / launch app</span><span class="keys"><kbd>Cmd</kbd>+<kbd>F</kbd></span></li>
   </ul>
@@ -123,16 +144,16 @@
   </ul>
 
   <h2>Mouse layer</h2>
-  <ul>
-    <li><span class="action">Toggle mouse</span><span class="keys"><kbd class="combo">F+W</kbd></span></li>
-    <li><span class="action">Cursor up/L/dn/R</span><span class="keys"><kbd>U</kbd> <kbd>N</kbd> <kbd>E</kbd> <kbd>I</kbd></span></li>
-    <li><span class="action">Left click</span><span class="keys"><kbd class="thumb">L-outer</kbd></span></li>
-    <li><span class="action">Right click</span><span class="keys"><kbd class="thumb">L-inner</kbd></span></li>
-    <li><span class="action">Middle click</span><span class="keys"><kbd>,</kbd></span></li>
-    <li><span class="action">Wheel L/R</span><span class="keys"><kbd>J</kbd> <kbd>'</kbd></span></li>
-    <li><span class="action">Wheel up/dn</span><span class="keys"><kbd>H</kbd> <kbd>.</kbd></span></li>
-    <li><span class="action">Page up/dn</span><span class="keys"><kbd>L</kbd> <kbd>Y</kbd></span></li>
-    <li><span class="action">Exit</span><span class="keys"><kbd class="thumb">R-outer</kbd></span></li>
+  <ul class="sec-mouse">
+    <li><span class="action">Toggle mouse</span><span class="keys" data-keys="L:F,W"></span></li>
+    <li><span class="action">Cursor up/L/dn/R</span><span class="keys" data-keys="R:U,N,E,I"></span></li>
+    <li><span class="action">Left click</span><span class="keys" data-keys="T:LO"></span></li>
+    <li><span class="action">Right click</span><span class="keys" data-keys="T:LI"></span></li>
+    <li><span class="action">Middle click</span><span class="keys" data-keys="R:COMMA"></span></li>
+    <li><span class="action">Wheel L/R</span><span class="keys" data-keys="R:J,QUOTE"></span></li>
+    <li><span class="action">Wheel up/dn</span><span class="keys" data-keys="R:H,DOT"></span></li>
+    <li><span class="action">Page up/dn</span><span class="keys" data-keys="R:L,Y"></span></li>
+    <li><span class="action">Exit</span><span class="keys" data-keys="T:RO"></span></li>
   </ul>
 
   <h2>Text edit</h2>
@@ -142,5 +163,155 @@
     <li><span class="action">Word del back/fwd</span><span class="keys">long-tap NAV bspc/del</span></li>
   </ul>
 </main>
+
+<script>
+(() => {
+  const SUB = { COMMA: ',', QUOTE: "'", DOT: '.', SEMI: ';', SLASH: '/', QMARK: '?' };
+  const L = [['Q','W','F','P','B'],['A','R','S','T','G'],['Z','X','C','D','V']];
+  const R = [['J','L','U','Y',"'"],['M','N','E','I','O'],['K','H',',','.','?']];
+  const NS = 'http://www.w3.org/2000/svg';
+
+  const C = 13, G = 1.5, P = C + G;
+  const HW = 5*C + 4*G;
+  const HH = 3*C + 2*G;
+
+  function el(name, attrs, text) {
+    const e = document.createElementNS(NS, name);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  function drawHand(svg, layout, xOff, yOff, hits, withLabels, withHomeDots) {
+    for (let r = 0; r < 3; r++) {
+      for (let c = 0; c < 5; c++) {
+        const k = layout[r][c];
+        const on = hits.has(k);
+        const x = xOff + c*P, y = yOff + r*P;
+        const rect = el('rect', { x, y, width: C, height: C, rx: 1.5, class: 'k' + (on ? ' on' : '') });
+        svg.appendChild(rect);
+        if (withLabels === 'all' || (withLabels === 'on' && on)) {
+          const lbl = el('text', { x: x + C/2, y: y + C/2 + 0.3, class: 'lbl' + (on ? ' on' : '') }, k);
+          svg.appendChild(lbl);
+        }
+        // Home indicators on T (left) and N (right) positions — Colemak-DH home row middle
+        if (withHomeDots && r === 1 && c === 3 && layout === L) {
+          svg.appendChild(el('rect', { x: x + C/2 - 2, y: y + C - 2.5, width: 4, height: 1, rx: 0.5, class: 'home' }));
+        }
+        if (withHomeDots && r === 1 && c === 1 && layout === R) {
+          svg.appendChild(el('rect', { x: x + C/2 - 2, y: y + C - 2.5, width: 4, height: 1, rx: 0.5, class: 'home' }));
+        }
+      }
+    }
+  }
+
+  function gridSpec(spec) {
+    const parts = spec.split('|');
+    const keyHits = { L: new Set(), R: new Set() };
+    const thumbHits = new Set();
+    let hasGrid = false, thumbsOnly = true;
+    for (const part of parts) {
+      const [side, keys] = part.split(':');
+      const ks = keys ? keys.split(',').filter(k=>k).map(k => SUB[k] || k) : [];
+      if (side === 'L') { ks.forEach(k => keyHits.L.add(k)); hasGrid = true; thumbsOnly = false; keyHits.LShown = true; }
+      else if (side === 'R') { ks.forEach(k => keyHits.R.add(k)); hasGrid = true; thumbsOnly = false; keyHits.RShown = true; }
+      else if (side === 'T') { ks.forEach(k => thumbHits.add(k)); }
+    }
+    return { keyHits, thumbHits, hasGrid, thumbsOnly };
+  }
+
+  function renderGrid(spec, opts={}) {
+    const { keyHits, thumbHits, thumbsOnly } = gridSpec(spec);
+    const showL = keyHits.LShown || keyHits.L.size > 0 || (thumbHits.size && (thumbHits.has('LO') || thumbHits.has('LI')));
+    const showR = keyHits.RShown || keyHits.R.size > 0 || (thumbHits.size && (thumbHits.has('RI') || thumbHits.has('RO')));
+
+    if (thumbsOnly) {
+      // compact: 4 thumbs with L/R hand labels + center divider
+      const r = 6, gap = 5, divW = 14;
+      const order = ['LO','LI','RI','RO'];
+      const totalW = 4*(2*r) + 2*gap + divW + 4;
+      const h = 2*r + 14;  // extra height for L/R labels below
+      const svg = el('svg', { class:'kbmap', width: totalW, height: h, viewBox: `0 0 ${totalW} ${h}` });
+      let x = r + 2;
+      const positions = [];
+      for (let i = 0; i < 4; i++) {
+        positions.push({ k: order[i], x });
+        svg.appendChild(el('circle', { cx: x, cy: r+2, r, class: 't' + (thumbHits.has(order[i]) ? ' on' : '') }));
+        if (i === 1) x += 2*r + divW;
+        else if (i < 3) x += 2*r + gap;
+      }
+      // center divider
+      const divX = totalW / 2;
+      svg.appendChild(el('line', { x1: divX, y1: 0, x2: divX, y2: 2*r+4, stroke: '#4a5360', 'stroke-width': 0.5, 'stroke-dasharray': '2 2' }));
+      // L / R labels
+      const lLabelX = (positions[0].x + positions[1].x) / 2;
+      const rLabelX = (positions[2].x + positions[3].x) / 2;
+      svg.appendChild(el('text', { x: lLabelX, y: 2*r+11, class: 'lbl' }, 'L'));
+      svg.appendChild(el('text', { x: rLabelX, y: 2*r+11, class: 'lbl' }, 'R'));
+      return svg;
+    }
+
+    // grid mode
+    const showLeft = showL || (thumbHits.size && (thumbHits.has('LO') || thumbHits.has('LI')));
+    const showRight = showR || (thumbHits.size && (thumbHits.has('RI') || thumbHits.has('RO')));
+    const gap = (showLeft && showRight) ? 8 : 0;
+    const w = (showLeft ? HW : 0) + gap + (showRight ? HW : 0);
+    const showThumbs = thumbHits.size > 0;
+    const thY = HH + 4;
+    const thR = 4;
+    const h = HH + (showThumbs ? thR*2 + 5 : 0);
+    const withLabels = opts.labels;
+
+    const svg = el('svg', { class:'kbmap', width: w, height: h, viewBox: `0 0 ${w} ${h}` });
+    if (showLeft) drawHand(svg, L, 0, 0, keyHits.L, withLabels, opts.homeDots);
+    if (showRight) drawHand(svg, R, showLeft ? HW + gap : 0, 0, keyHits.R, withLabels, opts.homeDots);
+    if (showLeft && showRight) {
+      const cx = HW + gap/2;
+      svg.appendChild(el('line', { x1: cx, y1: 0, x2: cx, y2: HH, stroke: '#4a5360', 'stroke-width': 0.5, 'stroke-dasharray': '1 1' }));
+    }
+    if (showThumbs) {
+      // place thumb circles roughly under inner cols
+      if (showLeft) {
+        svg.appendChild(el('circle', { cx: 3*P + C/2, cy: thY+thR, r: thR, class: 't' + (thumbHits.has('LO')?' on':'') }));
+        svg.appendChild(el('circle', { cx: 4*P + C/2, cy: thY+thR, r: thR, class: 't' + (thumbHits.has('LI')?' on':'') }));
+      }
+      if (showRight) {
+        const xOff = showLeft ? HW + gap : 0;
+        svg.appendChild(el('circle', { cx: xOff + 0*P + C/2, cy: thY+thR, r: thR, class: 't' + (thumbHits.has('RI')?' on':'') }));
+        svg.appendChild(el('circle', { cx: xOff + 1*P + C/2, cy: thY+thR, r: thR, class: 't' + (thumbHits.has('RO')?' on':'') }));
+      }
+    }
+    return svg;
+  }
+
+  // intro: full keyboard with labels and example highlights
+  document.querySelectorAll('[data-intro]').forEach(host => {
+    // Bigger cells for legibility
+    const oldC = C;
+    const big = renderGrid('L:|R:|T:LO,LI,RI,RO', { labels: true });
+    // Replace with explicit big version
+    host.innerHTML = '';
+    const wrap = document.createElementNS(NS, 'svg');
+    // We'll just call renderGrid with labels and then add a caption
+    const svg = renderGrid('L:|R:', { labels: 'all', homeDots: true });
+    svg.setAttribute('width', svg.getAttribute('width') * 1.6);
+    svg.setAttribute('height', svg.getAttribute('height') * 1.6);
+    host.appendChild(svg);
+    const lbls = document.createElement('div');
+    lbls.className = 'lbls';
+    lbls.innerHTML = '<span>left</span><span>right</span>';
+    host.appendChild(lbls);
+  });
+
+  document.querySelectorAll('[data-keys]').forEach(el => {
+    const spec = el.getAttribute('data-keys');
+    const inline = el.getAttribute('data-inline') === '1';
+    const labels = el.getAttribute('data-labels') === 'all' ? 'all' : 'none';
+    const svg = renderGrid(spec, { labels });
+    if (inline) svg.style.verticalAlign = 'middle';
+    el.appendChild(svg);
+  });
+})();
+</script>
 </body>
 </html>
