@@ -251,11 +251,10 @@
       return svg;
     }
 
-    // grid mode
-    const showLeft = showL || (thumbHits.size && (thumbHits.has('LO') || thumbHits.has('LI')));
-    const showRight = showR || (thumbHits.size && (thumbHits.has('RI') || thumbHits.has('RO')));
-    const gap = (showLeft && showRight) ? 8 : 0;
-    const w = (showLeft ? HW : 0) + gap + (showRight ? HW : 0);
+    // grid mode — always show both hands for context
+    const showLeft = true, showRight = true;
+    const gap = 8;
+    const w = HW + gap + HW;
     const showThumbs = thumbHits.size > 0;
     const thY = HH + 4;
     const thR = 4;
