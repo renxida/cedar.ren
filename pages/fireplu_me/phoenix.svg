@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="A stylized phoenix rising in fire plumes">
+  <defs>
+    <radialGradient id="halo" cx="50%" cy="60%" r="55%">
+      <stop offset="0%" stop-color="#ffe9a8" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#ff8a1e" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#3a0a02" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="flame" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#7a1503"/>
+      <stop offset="35%" stop-color="#e23a0a"/>
+      <stop offset="70%" stop-color="#ff9a1e"/>
+      <stop offset="100%" stop-color="#fff2b0"/>
+    </linearGradient>
+    <linearGradient id="plume" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#b62208"/>
+      <stop offset="55%" stop-color="#ff7a1e"/>
+      <stop offset="100%" stop-color="#ffe57a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="400" height="400" fill="#1a0703"/>
+  <circle cx="200" cy="240" r="190" fill="url(#halo)"/>
+
+  <!-- outer plume fan -->
+  <g fill="url(#plume)" opacity="0.85">
+    <path d="M200 230 C 80 180, 50 60, 110 20  C 120 90, 160 150, 200 230 Z"/>
+    <path d="M200 230 C 320 180, 350 60, 290 20 C 280 90, 240 150, 200 230 Z"/>
+    <path d="M200 230 C 130 170, 90 80, 160 30 C 165 110, 185 170, 200 230 Z"/>
+    <path d="M200 230 C 270 170, 310 80, 240 30 C 235 110, 215 170, 200 230 Z"/>
+    <path d="M200 230 C 195 150, 195 60, 200 20 C 205 60, 205 150, 200 230 Z"/>
+  </g>
+
+  <!-- inner flame body -->
+  <path d="M200 320
+           C 150 300, 130 250, 160 210
+           C 175 230, 190 240, 200 240
+           C 210 240, 225 230, 240 210
+           C 270 250, 250 300, 200 320 Z"
+        fill="url(#flame)"/>
+
+  <!-- wings sweeping out -->
+  <path d="M200 250
+           C 140 240, 90 200, 70 150
+           C 120 170, 160 200, 200 230 Z"
+        fill="url(#flame)" opacity="0.95"/>
+  <path d="M200 250
+           C 260 240, 310 200, 330 150
+           C 280 170, 240 200, 200 230 Z"
+        fill="url(#flame)" opacity="0.95"/>
+
+  <!-- head + beak -->
+  <path d="M200 195
+           C 188 195, 180 188, 180 178
+           C 180 168, 188 160, 200 160
+           C 212 160, 220 168, 220 178
+           C 220 188, 212 195, 200 195 Z"
+        fill="#ffd76a"/>
+  <path d="M200 178 L 215 175 L 200 184 Z" fill="#7a1503"/>
+  <circle cx="206" cy="175" r="2" fill="#1a0703"/>
+
+  <!-- crest -->
+  <path d="M200 160 C 198 145, 205 130, 215 120 C 212 138, 208 152, 205 160 Z" fill="url(#plume)"/>
+  <path d="M200 160 C 202 145, 195 130, 185 120 C 188 138, 192 152, 195 160 Z" fill="url(#plume)"/>
+
+  <!-- tail sparks -->
+  <g fill="#ffd76a" opacity="0.9">
+    <circle cx="200" cy="345" r="3"/>
+    <circle cx="180" cy="355" r="2"/>
+    <circle cx="220" cy="355" r="2"/>
+    <circle cx="200" cy="370" r="2"/>
+  </g>
+</svg>
