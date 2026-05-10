@@ -4,6 +4,7 @@
 
 ## All Pages
 
+- [Becoming a Blue-Buttoner](/pages/becoming_a_bluebuttoner)
 - [Bits](/pages/bits/)
 - [Blessed Hills](/pages/blessed_hills)
 - [Broker Fees](/pages/broker_fees)
@@ -15,6 +16,7 @@
 - [Inspiration](/pages/inspiration)
 - [Korvain](/pages/korvain)
 - [Kpot](/pages/kpot)
+- [The Blue Button](/pages/blue_button)
 - [Try Wirelessly Charging your Google Pixel before sending it in for repairs](/pages/try_wireless_charging_pixel)
 - [Where Is Cedar](/pages/where_is_cedar)
 - [Zhuge](/pages/zhuge.txt)
