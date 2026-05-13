@@ -4,7 +4,7 @@
 
 ## All Pages
 
-- [Becoming a Blue-Buttoner](/pages/becoming_a_bluebuttoner)
+<!-- Do not link becoming_a_bluebuttoner here; it is only linked from blue_button. -->
 - [Bits](/pages/bits/)
 - [Blessed Hills](/pages/blessed_hills)
 - [Broker Fees](/pages/broker_fees)
